@@ -1,16 +1,20 @@
 "use server";
-import TaskListsModel from "@/models/TaskListModel";
 import {connect} from "@/dbConfig/dbConfig";
 import { revalidatePath } from "next/cache";
+import TaskListsModel  from '@/models/TaskListModel';
+import { AnyARecord } from "dns";
+import { async } from './../../.next/server/vendor-chunks/next';
 connect();
 
 export async function addListToDB(data:any){
     try{
+        const unfinishedTasks = data.tasks.length;
+        const finishedTasks = 0;
         const listData = new TaskListsModel({
             listName:data.listName,
             tasks:data.tasks,
-            unfinishedTasks:data.tasks.length,
-            finishedTasks:0
+            unfinishedTasks:unfinishedTasks,
+            finishedTasks:finishedTasks
         })
         await listData.save();
         revalidatePath("http://localhost:3000/");
@@ -27,12 +31,48 @@ export async function getLists(){
             response.push({
                 _id:list._id.toString(),
                 listName:list.listName,
-                tasks:list.tasks
+                tasks:list.tasks,
+                unfinishedTasks:list.unfinishedTasks,
+                finishedTasks:list.finishedTasks
             })
         })
         return response;
     }catch(error){
         console.error(error)
+    }
+}
+
+export async function getListById(listId:any){
+    try{
+        const list = await TaskListsModel.findById(listId);
+        const result = {
+            _id:list._id.toString(),
+            listName:list.listName,
+            tasks:list.tasks,
+            unfinishedTasks:list.unfinishedTasks,
+            finishedTasks:list.finishedTasks,
+        }
+        return result;
+    }catch(err){
+        console.error(err);
+    }
+
+}
+
+export async function updateList(listId:any, data:any){
+    try{
+        const unfinishedTasks = data.tasks.filter((task)=> task.status == "unfinished").length; 
+        const finishedTasks = data.tasks.filter((task)=> task.status == "finished").length; 
+        const updateList = await TaskListsModel.findByIdAndUpdate(listId,{
+            listName:data.listName,
+            tasks:data.tasks,
+            unfinishedTasks:unfinishedTasks,
+            finishedTasks:finishedTasks
+        })
+        updateList.save();
+        revalidatePath("http://localhost:3000/");
+    }catch(err){
+        console.error(err)
     }
 }
 

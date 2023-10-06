@@ -1,9 +1,11 @@
 import React, {useEffect,useState} from "react";
 import {FaPlus} from "react-icons/fa6";
 import {FaTrash} from "react-icons/fa6";
-import { addListToDB } from "@/dbFunctions/dbFunctions";
+import { uuid } from 'uuidv4';
 import {toast} from 'react-hot-toast';
-import { redirect } from 'next/navigation'
+import { addListToDB } from "@/dbFunctions/dbFunctions";
+
+
 export default function CreateTasks({setIsCreating}){
 
     interface listState{
@@ -26,10 +28,10 @@ export default function CreateTasks({setIsCreating}){
         setList((prevList)=>({
             ...prevList,
             tasks:[...prevList.tasks, {
-                "id":list.tasks.length + 1,
+                "id":uuid(),
                 "task":task,
-                "status":"pending"
-            }]
+                "status":"unfinished"
+            }],
         }))
         setTaskToAdd("");
       };
@@ -52,7 +54,7 @@ export default function CreateTasks({setIsCreating}){
         const updatedList = list.tasks.filter(task=>task.id != taskId);
         setList((prevList)=>({
             ...prevList,
-            tasks:updatedList
+            tasks:updatedList,
         }))
     }
 
@@ -75,7 +77,6 @@ export default function CreateTasks({setIsCreating}){
                     <FaPlus size={30} />
                 </div>
             </div>
-            <span className="createTasks_clearAll">Clear all</span>
             <div className="createTasks_tasksContainer">
                 {list.tasks.map(task=>(
                     <div onMouseEnter={()=>setHoveredTask(task.id)}

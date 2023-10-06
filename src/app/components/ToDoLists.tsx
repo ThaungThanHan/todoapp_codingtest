@@ -7,10 +7,13 @@ import ClipLoader from "react-spinners/ClipLoader";
 
 import ListCard from "./ListCards";
 import CreateTasks from "./CreateTasks";
+import EditTasks from "./EditTasks";
 import { getLists } from "@/dbFunctions/dbFunctions";
 
 export default function ToDoLists(){
     const [isCreating,setIsCreating] = useState(false);
+    const [isEditing, setIsEditing] = useState(false);
+    const [editData,setEditData] = useState({});
     const [isFetching, setIsFetching] = useState(true);
     const [lists,setLists] = useState([]);
     useEffect(()=>{
@@ -24,10 +27,10 @@ export default function ToDoLists(){
         <div className="lists">
             <div className="lists_titleContainer">
                 <p className="lists_titleContainer_title">
-                    {lists.length > 0 ? `You have ${lists.length} tasks!` : "You have no tasks"}
+                    {lists.length > 0 ? `You have ${lists.length} to-do lists!` : "You have no tasks"}
                 </p>
-                {isCreating ?
-                    <div onClick={()=>setIsCreating(!isCreating)}
+                {isCreating || isEditing ?
+                    <div onClick={()=>{setIsCreating(false),setIsEditing(false)}}
                     style={{backgroundColor:"red"}}  className="lists_titleContainer_create">
                         <p className="lists_titleContainer_create_text">
                             Return
@@ -45,10 +48,12 @@ export default function ToDoLists(){
             </div>
             <div >
                 {isCreating ? 
-                    <CreateTasks setIsCreating={setIsCreating} /> :
+                    <CreateTasks setIsCreating={setIsCreating} /> : isEditing ?
+                    <EditTasks editData={editData} setIsEditing={setIsEditing} /> :
                     <div className="lists_container">
                         {lists.length > 0 ? lists.map(list=>(
-                            <ListCard listId={list._id} name={list.listName} tasks={list.tasks} />
+                            <ListCard key={list._id} setIsEditing={setIsEditing} setEditData={setEditData}
+                            list={list} />
                         )) : 
                         <p className="lists_container_emptyList">
                             {isFetching ? 
