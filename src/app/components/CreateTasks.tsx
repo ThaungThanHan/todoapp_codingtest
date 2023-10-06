@@ -2,7 +2,9 @@ import React, {useEffect,useState} from "react";
 import {FaPlus} from "react-icons/fa6";
 import {FaTrash} from "react-icons/fa6";
 import { addListToDB } from "@/dbFunctions/dbFunctions";
-export default function CreateTasks(){
+import {toast} from 'react-hot-toast';
+import { redirect } from 'next/navigation'
+export default function CreateTasks({setIsCreating}){
 
     interface listState{
         listName:string,
@@ -25,12 +27,27 @@ export default function CreateTasks(){
             ...prevList,
             tasks:[...prevList.tasks, {
                 "id":list.tasks.length + 1,
-                "task":task
+                "task":task,
+                "status":"pending"
             }]
         }))
         setTaskToAdd("");
       };
     
+    const handleCreateTasks = async(list:any) => {
+        const loadingToast = toast.loading('Creating...');
+        await addListToDB(list).then(res=>{
+            toast.dismiss(loadingToast);
+            toast.success("Task list created!",{
+                duration:2000,
+                icon:"🎉"
+            });
+            setTimeout(()=>{setIsCreating(false)},2000);
+        }).catch(err=>{
+            toast.error(err);
+        })
+        
+    }
     const deleteFromList = (taskId:BigInteger) =>{
         const updatedList = list.tasks.filter(task=>task.id != taskId);
         setList((prevList)=>({
@@ -46,7 +63,11 @@ export default function CreateTasks(){
             onChange={(e)=>onChangeName(e)}
             className="createTasks_nameInput" placeholder="Enter list name"/>
             <div className="createTasks_inputContainer">
-                <input name="task" 
+                <input name="task" onKeyDown={e => {
+                    if(e.key == "Enter"){
+                        onAddTasks(taskToAdd);
+                    }
+                }}
                 onChange={(e)=>setTaskToAdd(e.target.value)} value={taskToAdd}
                 placeholder="Enter task" className="createTasks_inputContainer_input" />
                 <div onClick={()=>onAddTasks(taskToAdd)}
@@ -54,6 +75,7 @@ export default function CreateTasks(){
                     <FaPlus size={30} />
                 </div>
             </div>
+            <span className="createTasks_clearAll">Clear all</span>
             <div className="createTasks_tasksContainer">
                 {list.tasks.map(task=>(
                     <div onMouseEnter={()=>setHoveredTask(task.id)}
@@ -73,7 +95,7 @@ export default function CreateTasks(){
                 ))}
 
             </div>
-            <button onClick={()=>addListToDB(list)} className="createTasks_submit">
+            <button onClick={()=>handleCreateTasks(list)} className="createTasks_submit">
                 <p>Create</p>
             </button>
         </div>
