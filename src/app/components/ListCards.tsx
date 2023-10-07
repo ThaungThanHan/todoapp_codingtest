@@ -13,8 +13,8 @@ export default function ListCards({list,setIsEditing,setEditData}){
                 label:'No. of tasks',
                 data:[list.unfinishedTasks,list.finishedTasks],
                 backgroundColor:[
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(224, 42, 42)',
+                    'rgba(55, 215, 178)',
                 ]
             }
         ]

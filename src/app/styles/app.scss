@@ -1,24 +1,32 @@
+@import './variables.scss';
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+*{
+    font-family: 'Roboto', sans-serif;
+}
 body, html {
     margin: 0;
     padding: 0;
 }
 .container{
-    width:100%;height:100vh;box-sizing: border-box;
+    width:100%;height:100vh;box-sizing: border-box;background-color: $white;
 
 }
 .app_container{
-    width:70%;margin:0 auto;height:auto; // can change later
+    width:70%;margin:0 auto;height:auto; // can change later;
+    
 }
 
 // USER INFO
 .userInfo{
-    height:auto;display:flex;flex-direction:column;justify-content:center;
-    align-items:center;width:100%;
+    height:auto;display:flex;flex-direction:column;max-width:100%;justify-self:'flex-end';
+    right:0;
     &_welcomeText{
-        font-size:3rem;margin-bottom:-1rem;margin-top:-.05rem;
+        font-size:2rem;margin-bottom:-1rem;margin-top:-.05rem;width:100%;
+        width:100%;text-align:right;
     }
     &_username{
-        font-size:1.5rem;
+        font-size:1.5rem;margin-right:0;
+        width:100%;text-align:right;
     }
 }
 
@@ -33,9 +41,20 @@ body, html {
         &_create{
             width:10rem;height:2rem;margin-right:.5rem;padding:.5rem;cursor:pointer;
             transition:all .5s;
-            background-color: green;display:flex;justify-content:space-between;align-items:center;
+            background-color: $primaryGreen;display:flex;justify-content:space-between;align-items:center;
+            &:hover{
+                background-color: $secondaryGreen;
+            }
             &_text{
                 color:white;
+            }
+        }
+        &_return{
+            width:10rem;height:2rem;margin-right:.5rem;padding:.5rem;cursor:pointer;
+            transition:all .5s;
+            background-color: $primaryRed;display:flex;justify-content:space-between;align-items:center;
+            &:hover{
+                background-color: $secondaryRed;
             }
         }
     }
@@ -50,8 +69,8 @@ body, html {
 }
 // List Card
 .listCard{
-    border:1px solid green;width:10rem;height:15rem;display:flex;justify-content:center;
-    flex-direction: column;align-items:center;
+    border:1px solid #eee;width:10rem;height:15rem;display:flex;justify-content:center;
+    flex-direction: column;align-items:center;box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
     &_name{
         font-weight:bold;
     }
@@ -67,13 +86,20 @@ body, html {
         padding:0 .1rem;
         align-items: center;
         &_edit{
-            border:1px solid greenyellow;width:2rem;height:2rem;border-radius:1rem;
-            background-color: greenyellow;display:flex;align-items: center;justify-content: center;
-            cursor:pointer;
+            border:none;width:2rem;height:2rem;border-radius:1rem;
+            background-color: $primaryGreen ;display:flex;align-items: center;justify-content: center;
+            cursor:pointer;transition:all .5s; box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+            &:hover{
+                background-color:$secondaryGreen;  box-shadow: 0px 6px 15px $secondaryGreen;
+            }
         }
         &_delete{
-            border:1px solid red;width:2rem;height:2rem;border-radius:1rem;cursor:pointer;
-            background-color: red;display:flex;align-items: center;justify-content: center;
+            border:none;width:2rem;height:2rem;border-radius:1rem;cursor:pointer;
+            background-color: $primaryRed;display:flex;align-items: center;justify-content: center;
+            transition:all .5s;box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+            &:hover{
+                background-color: $secondaryRed;box-shadow: 0px 6px 15px $secondaryRed;
+            }
         }
     }
 }
@@ -85,7 +111,7 @@ body, html {
     //     font-size:2rem;margin-bottom:.5rem;
     // }
     &_nameInput{
-        width:30rem;height:3rem;border:none;border-bottom:1px solid black;background-color: transparent;
+        width:30rem;height:3rem;border:none;border-bottom:1px solid #eee;background-color: transparent;
         text-align:center;font-size:1.5rem;margin-bottom:1rem;
         &:focus{
             outline:none;
@@ -95,15 +121,26 @@ body, html {
         display:flex;flex-direction: row;width:30rem;justify-content: space-between;
         padding:.5rem;align-items:center;
         &_input{
-            border:none;height:2.5rem;width:24rem;font-size:1.5rem;padding-left:.5rem;
-            border-radius:.25rem;
+            border:1px solid #eee;height:2.5rem;width:24rem;font-size:1.5rem;padding-left:.5rem;
+            border-radius:.25rem;transition:all .5s;
             &:focus{
                 outline:none;
+                border:1px solid $primaryGreen;
             }
         }
         &_addBtn{
-            display:flex;border:1px solid red;width:4rem;height:2.5rem;justify-content:center;
-            align-items: center;border-radius:.2rem;cursor:pointer;
+            display:flex;width:4rem;height:2.5rem;justify-content:center;
+            align-items: center;border-radius:.2rem;cursor:pointer;background-color: $primaryGreen;
+            transition:all .3s;box-shadow: 3px 7px 12px -6px rgba(0,0,0,0.1);
+            &:active{
+                background-color: $secondaryGreen;transform:TranslateY(0.15rem);
+                box-shadow:  -4px -5px 12px -6px rgba(0,0,0,0.1);
+            }
+        }
+        &_addBtnDisabled{
+            display:flex;width:4rem;height:2.5rem;justify-content:center;opacity:0.1;
+            align-items: center;border-radius:.2rem;cursor:pointer;background-color: $primaryGreen;
+            transition:all .3s;box-shadow: 3px 7px 12px -6px rgba(0,0,0,0.1);
         }
     }
     &_tasksContainer{
@@ -138,7 +175,17 @@ body, html {
         }
     }
     &_submit{
-        width:5rem;justify-content: center;align-items:center;display:flex;
-        border-radius:.25rem;background-color: green;color:white;cursor:pointer;
+        width:5rem;justify-content: center;align-items:center;display:flex;border:none;
+        border-radius:.25rem;background-color: $primaryGreen;color:white;cursor:pointer;
+        transition:all .3s;box-shadow: 3px 7px 12px -6px rgba(0,0,0,0.1);
+        &_disabled{
+            width:5rem;justify-content: center;align-items:center;display:flex;border:none;
+            border-radius:.25rem;background-color: $primaryGreen;color:white;cursor:pointer;
+            transition:all .3s;box-shadow: 3px 7px 12px -6px rgba(0,0,0,0.1);opacity:0.1;
+        }
+        &:active{
+            background-color: $secondaryGreen;transform:TranslateY(0.15rem);
+            box-shadow:  -4px -5px 12px -6px rgba(0,0,0,0.1);
+        }
     }
 }

@@ -66,15 +66,16 @@ export default function CreateTasks({setIsCreating}){
             className="createTasks_nameInput" placeholder="Enter list name"/>
             <div className="createTasks_inputContainer">
                 <input name="task" onKeyDown={e => {
-                    if(e.key == "Enter"){
+                    if(taskToAdd.length > 0 && e.key == "Enter"){
                         onAddTasks(taskToAdd);
                     }
                 }}
                 onChange={(e)=>setTaskToAdd(e.target.value)} value={taskToAdd}
                 placeholder="Enter task" className="createTasks_inputContainer_input" />
-                <div onClick={()=>onAddTasks(taskToAdd)}
-                className="createTasks_inputContainer_addBtn">
-                    <FaPlus size={30} />
+                <div onClick={()=>{taskToAdd.length > 0 ? onAddTasks(taskToAdd) : null}}
+                className={taskToAdd.length > 0 ? "createTasks_inputContainer_addBtn":
+                "createTasks_inputContainer_addBtnDisabled"}>
+                    <FaPlus size={30} color="white" />
                 </div>
             </div>
             <div className="createTasks_tasksContainer">
@@ -96,7 +97,12 @@ export default function CreateTasks({setIsCreating}){
                 ))}
 
             </div>
-            <button onClick={()=>handleCreateTasks(list)} className="createTasks_submit">
+            <button onClick={()=>{
+                list.listName.length > 0 && list.tasks.length > 0 ?
+                    handleCreateTasks(list) :
+                    null
+            }} className={list.listName.length > 0 && list.tasks.length > 0 ? "createTasks_submit" :
+            "createTasks_submit_disabled"}>
                 <p>Create</p>
             </button>
         </div>

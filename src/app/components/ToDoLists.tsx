@@ -31,7 +31,7 @@ export default function ToDoLists(){
                 </p>
                 {isCreating || isEditing ?
                     <div onClick={()=>{setIsCreating(false),setIsEditing(false)}}
-                    style={{backgroundColor:"red"}}  className="lists_titleContainer_create">
+                    className="lists_titleContainer_return">
                         <p className="lists_titleContainer_create_text">
                             Return
                         </p>
