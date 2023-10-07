@@ -1,0 +1,58 @@
+@import "./variables.scss";
+body, html {
+    margin: 0;
+    padding: 0;
+}
+.auth_container{
+    width:100%;height:100vh;box-sizing: border-box;background-color:$appBackground;
+}
+.auth_form{
+    width:40rem;margin:0 auto;height:30rem;display:flex;
+    flex-direction:column;justify-content:center;align-items: center;
+    &_form{
+        display:flex;flex-direction: column;align-items: center;justify-content: center;
+    }
+    &_input{
+        display:flex;flex-direction: column;margin-bottom:.5rem;
+        &_inputbox{
+            height:2rem;width:15rem;background-color:$white;border-radius:.5rem;
+            border:1px solid #eee;padding-left:.5rem;
+            &:focus{
+                outline:none;
+            }
+        }
+        &_errorText{
+            display:flex;font-size:.7rem;align-items: center;
+            &_icon{
+                margin-right:.5rem;
+            }
+        }
+    }
+    &_submit{
+        width:6rem;height:3rem;justify-content: center;align-items:center;display:flex;border:none;
+        border-radius:.25rem;background-color: $primaryGreen;color:white;cursor:pointer;
+        transition:all .3s;box-shadow: 3px 7px 12px -6px rgba(0,0,0,0.1);font-size:1.2rem;
+        &:hover{
+            background-color: $secondaryGreen;
+        }
+        &_disabled{
+            width:6rem;justify-content: center;align-items:center;display:flex;border:none;
+            border-radius:.25rem;background-color: $primaryGreen;color:white;cursor:pointer;
+            transition:all .3s;box-shadow: 3px 7px 12px -6px rgba(0,0,0,0.1);opacity:0.1;
+            font-size:1.2rem;
+        }
+        &:active{
+            background-color: $secondaryGreen;transform:TranslateY(0.15rem);
+            box-shadow:  -4px -5px 12px -6px rgba(0,0,0,0.1);
+        }
+    }
+    &_redirect{
+        &_link{
+            color:$primaryGreen;cursor:pointer;transition:all .5s;font-weight:bold;
+            text-decoration: none;
+            &:hover{
+                color:$secondaryGreen
+            }
+        }
+    }
+}

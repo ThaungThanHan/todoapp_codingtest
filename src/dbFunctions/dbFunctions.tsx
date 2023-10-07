@@ -1,9 +1,8 @@
 "use server";
 import {connect} from "@/dbConfig/dbConfig";
 import { revalidatePath } from "next/cache";
-import TaskListsModel  from '@/models/TaskListModel';
-import { AnyARecord } from "dns";
-import { async } from './../../.next/server/vendor-chunks/next';
+import TaskListsModel from '@/models/TaskListModel';
+
 connect();
 
 export async function addListToDB(data:any){
@@ -84,3 +83,4 @@ export async function deleteList(listId:any){
         console.error(err);
     }
 }
+

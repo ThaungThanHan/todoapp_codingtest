@@ -11,7 +11,7 @@ import EditTasks from "./EditTasks";
 import { getLists } from "@/dbFunctions/dbFunctions";
 
 export default function ToDoLists(){
-    const [isCreating,setIsCreating] = useState(false);
+    const [isCreating,setIsCreating] = useState(true);
     const [isEditing, setIsEditing] = useState(false);
     const [editData,setEditData] = useState({});
     const [isFetching, setIsFetching] = useState(true);
@@ -51,7 +51,7 @@ export default function ToDoLists(){
                     <CreateTasks setIsCreating={setIsCreating} /> : isEditing ?
                     <EditTasks editData={editData} setIsEditing={setIsEditing} /> :
                     <div className="lists_container">
-                        {lists.length > 0 ? lists.map(list=>(
+                        {lists && lists.length > 0 ? lists.map(list=>(
                             <ListCard key={list._id} setIsEditing={setIsEditing} setEditData={setEditData}
                             list={list} />
                         )) : 

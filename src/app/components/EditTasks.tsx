@@ -72,9 +72,10 @@ export default function EditTasks({editData, setIsEditing}){
                 }}
                 onChange={(e)=>setTaskToAdd(e.target.value)} value={taskToAdd}
                 placeholder="Enter task" className="createTasks_inputContainer_input" />
-                <div onClick={()=>onAddTasks(taskToAdd)}
-                className="createTasks_inputContainer_addBtn">
-                    <FaPlus size={30} />
+                <div onClick={()=>{taskToAdd.length > 0 ? onAddTasks(taskToAdd) : null}}
+                className={taskToAdd.length > 0 ? "createTasks_inputContainer_addBtn":
+                "createTasks_inputContainer_addBtnDisabled"}>
+                    <FaPlus size={30} color="white"/>
                 </div>
             </div>
             <div className="createTasks_tasksContainer">
@@ -102,7 +103,12 @@ export default function EditTasks({editData, setIsEditing}){
                 ))}
 
             </div>
-            <button onClick={()=>handleUpdateList()} className="createTasks_submit">
+            <button onClick={()=>{
+                editedList.listName.length > 0 && editedList.tasks.length > 0 ?
+                    handleUpdateList() :
+                    null
+            }} className={editedList.listName.length > 0 && editedList.tasks.length > 0 ? "createTasks_submit" :
+            "createTasks_submit_disabled"}>
                 <p>Update</p>
             </button>
 

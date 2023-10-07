@@ -7,13 +7,15 @@ body, html {
     margin: 0;
     padding: 0;
 }
+::-webkit-scrollbar {
+    width: 0; /* Remove scrollbar width */
+  }
 .container{
-    width:100%;height:100vh;box-sizing: border-box;background-color: $white;
+    width:100%;height:100vh;box-sizing: border-box;background-color:$appBackground;
 
 }
 .app_container{
     width:70%;margin:0 auto;height:auto; // can change later;
-    
 }
 
 // USER INFO
@@ -145,29 +147,27 @@ body, html {
     }
     &_tasksContainer{
         max-height:20rem;width:30rem;font-size:1.5rem;overflow-y:scroll;
-        
         &_tasks{
-            border:1px solid green;max-width:100%;padding-left:.5rem;border-radius:.2rem;
+            border:1px solid #eee;max-width:100%;padding-left:1rem;border-radius:2rem;
             height:3rem;margin-bottom:1rem;display:flex;flex-direction:row;justify-content:space-between;
-            align-items: center;transition:all .5s;
+            align-items: center;transition:all .5s;background-color:$white;
+            box-shadow: 3px 7px 12px -6px rgba(0,0,0,0.1);
             &_tasksTextDone{
                 text-decoration: line-through;
             }
             &_actions{
-                display:flex;flex-direction: row;
+                display:flex;flex-direction: row;transition:all .5s;
             }
             
-            &_tasksCheckShown{
-                display:flex;cursor:pointer;
-                border:1px solid red; height:3rem; width:5rem;
-                justify-content: center;align-items: center;background-color:greenyellow;
-                color:white;transition:all .5s;
-            }
             &_tasksDeleteShown{
-                display:flex;cursor:pointer;
-                border:1px solid purple; height:3rem; width:5rem;
-                justify-content: center;align-items: center;background-color:red;
+                display:flex;cursor:pointer;border-top-right-radius: 2rem;
+                border-bottom-right-radius: 2rem;
+                height:3rem; width:5rem;background-color:$primaryRed;
+                justify-content: center;align-items: center;
                 color:white;transition:all .5s;
+                &:hover{
+                    background-color: $secondaryRed;
+                }
             }
             &_tasksDeleteHidden{
                 display:none;
@@ -175,13 +175,14 @@ body, html {
         }
     }
     &_submit{
-        width:5rem;justify-content: center;align-items:center;display:flex;border:none;
+        width:6rem;justify-content: center;align-items:center;display:flex;border:none;
         border-radius:.25rem;background-color: $primaryGreen;color:white;cursor:pointer;
-        transition:all .3s;box-shadow: 3px 7px 12px -6px rgba(0,0,0,0.1);
+        transition:all .3s;box-shadow: 3px 7px 12px -6px rgba(0,0,0,0.1);font-size:1.2rem;
         &_disabled{
-            width:5rem;justify-content: center;align-items:center;display:flex;border:none;
+            width:6rem;justify-content: center;align-items:center;display:flex;border:none;
             border-radius:.25rem;background-color: $primaryGreen;color:white;cursor:pointer;
             transition:all .3s;box-shadow: 3px 7px 12px -6px rgba(0,0,0,0.1);opacity:0.1;
+            font-size:1.2rem;
         }
         &:active{
             background-color: $secondaryGreen;transform:TranslateY(0.15rem);
