@@ -6,15 +6,16 @@ import {toast} from 'react-hot-toast';
 import { addListToDB } from "@/dbFunctions/dbFunctions";
 
 
-export default function CreateTasks({setIsCreating}){
-
+export default function CreateTasks({setIsCreating, currentUser}){
     interface listState{
         listName:string,
-        tasks:object[]
+        tasks:object[],
+        userId:string
     }
     const [list,setList] = useState<listState>({
         listName:"",
-        tasks:[]
+        tasks:[],
+        userId:currentUser._id
     })
     const [taskToAdd,setTaskToAdd] = useState("");
     const [hoveredTask,setHoveredTask] = useState(null);

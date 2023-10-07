@@ -7,11 +7,13 @@ connect();
 
 export async function addListToDB(data:any){
     try{
+        console.log(data);
         const unfinishedTasks = data.tasks.length;
         const finishedTasks = 0;
         const listData = new TaskListsModel({
             listName:data.listName,
             tasks:data.tasks,
+            userId:data.userId,
             unfinishedTasks:unfinishedTasks,
             finishedTasks:finishedTasks
         })
@@ -22,9 +24,9 @@ export async function addListToDB(data:any){
     }
 }
 
-export async function getLists(){
+export async function getListsById(userId:any){
     try{
-        const lists = await TaskListsModel.find();
+        const lists = await TaskListsModel.find({userId:userId});
         const response = [];
         lists.map(list=>{
             response.push({

@@ -4,25 +4,25 @@ import "../styles/app.scss";
 import {FaPlus} from "react-icons/fa6";
 import {FaArrowLeft} from "react-icons/fa6";
 import ClipLoader from "react-spinners/ClipLoader";
-
 import ListCard from "./ListCards";
 import CreateTasks from "./CreateTasks";
 import EditTasks from "./EditTasks";
-import { getLists } from "@/dbFunctions/dbFunctions";
+import { getListsById } from "@/dbFunctions/dbFunctions";
 
-export default function ToDoLists(){
-    const [isCreating,setIsCreating] = useState(true);
+export default function ToDoLists({currentUser}){
+    const [isCreating,setIsCreating] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
     const [editData,setEditData] = useState({});
     const [isFetching, setIsFetching] = useState(true);
     const [lists,setLists] = useState([]);
+
     useEffect(()=>{
-        setIsFetching(true)
-        getLists().then(result=>{
-            const returnedLists = result
-            setLists(returnedLists);
-        });
-    },[lists])
+        if(currentUser){
+            getListsById(currentUser._id).then(res=>{
+                setLists(res);
+            }).catch(err=>console.log(err));
+        }
+    },[currentUser,lists])
     return(
         <div className="lists">
             <div className="lists_titleContainer">
@@ -48,7 +48,8 @@ export default function ToDoLists(){
             </div>
             <div >
                 {isCreating ? 
-                    <CreateTasks setIsCreating={setIsCreating} /> : isEditing ?
+                    <CreateTasks currentUser={currentUser} setIsCreating={setIsCreating} />
+                     : isEditing ?
                     <EditTasks editData={editData} setIsEditing={setIsEditing} /> :
                     <div className="lists_container">
                         {lists && lists.length > 0 ? lists.map(list=>(
