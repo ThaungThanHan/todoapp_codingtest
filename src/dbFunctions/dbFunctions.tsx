@@ -64,9 +64,8 @@ export async function getListById(listId:any){
 
 export async function updateList(listId:any, data:any){
     try{
-        const List = await TaskListsModel.find({listName:data.listName});
-        const existingList = List.filter(list=> list.listName != data.listName);
-        if(existingList.length > 0){
+        const existingList = await TaskListsModel.findOne({ _id: { $ne: data.listId }, listName: data.listName });
+        if(existingList){
             throw new Error("Task list with same name exists")
         }
         const unfinishedTasks = data.tasks.filter((task)=> task.status == "unfinished").length; 
@@ -77,7 +76,6 @@ export async function updateList(listId:any, data:any){
             unfinishedTasks:unfinishedTasks,
             finishedTasks:finishedTasks
         })
-        updateList.save();
     }catch(err){
         throw err;
     }
