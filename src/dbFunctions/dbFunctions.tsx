@@ -7,7 +7,10 @@ connect();
 
 export async function addListToDB(data:any){
     try{
-        console.log(data);
+        const existingList = await TaskListsModel.find({listName:data.listName});
+        if(existingList.length > 0){
+            throw new Error("Task list with same name exists")
+        }
         const unfinishedTasks = data.tasks.length;
         const finishedTasks = 0;
         const listData = new TaskListsModel({
@@ -18,9 +21,8 @@ export async function addListToDB(data:any){
             finishedTasks:finishedTasks
         })
         await listData.save();
-        revalidatePath("http://localhost:3000/");
     }catch(err){
-        console.error(err)
+        throw err;
     }
 }
 
@@ -39,7 +41,7 @@ export async function getListsById(userId:any){
         })
         return response;
     }catch(error){
-        console.error(error)
+        throw err;
     }
 }
 
@@ -62,6 +64,11 @@ export async function getListById(listId:any){
 
 export async function updateList(listId:any, data:any){
     try{
+        const List = await TaskListsModel.find({listName:data.listName});
+        const existingList = List.filter(list=> list.listName != data.listName);
+        if(existingList.length > 0){
+            throw new Error("Task list with same name exists")
+        }
         const unfinishedTasks = data.tasks.filter((task)=> task.status == "unfinished").length; 
         const finishedTasks = data.tasks.filter((task)=> task.status == "finished").length; 
         const updateList = await TaskListsModel.findByIdAndUpdate(listId,{
@@ -71,16 +78,14 @@ export async function updateList(listId:any, data:any){
             finishedTasks:finishedTasks
         })
         updateList.save();
-        revalidatePath("http://localhost:3000/");
     }catch(err){
-        console.error(err)
+        throw err;
     }
 }
 
 export async function deleteList(listId:any){
     try{
         const deleteList = await TaskListsModel.findByIdAndDelete(listId);
-        revalidatePath("http://localhost:3000/");
     }catch(err){
         console.error(err);
     }

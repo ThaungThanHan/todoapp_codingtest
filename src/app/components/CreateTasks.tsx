@@ -47,7 +47,8 @@ export default function CreateTasks({setIsCreating, currentUser}){
             });
             setTimeout(()=>{setIsCreating(false)},2000);
         }).catch(err=>{
-            toast.error(err);
+            toast.dismiss(loadingToast);
+            toast.error(err.message,{duration:2000});
         })
         
     }

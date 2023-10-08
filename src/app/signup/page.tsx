@@ -25,7 +25,8 @@ export default function Signup() {
             });
             router.push(`/login`);
         }).catch(err=>{
-            console.log(err)
+            toast.dismiss(loadingToast);
+            toast.error(err.message,{duration:2000});
           })
     }
     const onSubmit: SubmitHandler<signupInput> = (data) => handleSignUp(data);

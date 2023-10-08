@@ -24,7 +24,8 @@ export default function Login() {
         });
         router.push(`/`);
       }).catch(err=>{
-        console.log(err)
+        toast.dismiss(loadingToast);
+        toast.error(err.message,{duration:2000});
       })
     }
     const { register, handleSubmit, formState: { errors } } = useForm();

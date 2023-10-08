@@ -56,6 +56,9 @@ export default function EditTasks({editData, setIsEditing}){
                 icon:"🎉"
             });
             setTimeout(()=>{setIsEditing(false)},2000);
+        }).catch(err=>{
+            toast.dismiss(loadingToast);
+            toast.error(err.message,{duration:2000});
         });
     }
     return(
