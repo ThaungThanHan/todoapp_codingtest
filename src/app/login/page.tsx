@@ -2,7 +2,7 @@
 import "../styles/auth.scss";
 import { useForm, SubmitHandler } from "react-hook-form"
 import { useRouter } from "next/navigation";
-import ErrorText from "../components/auth/ErrorText";
+import ErrorText from "../components/auth/errorText";
 import { loginUser } from "@/dbFunctions/authFunctions";
 import {toast} from 'react-hot-toast';
 import Cookies from 'js-cookie';

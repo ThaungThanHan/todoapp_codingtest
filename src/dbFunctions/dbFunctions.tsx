@@ -1,7 +1,7 @@
 "use server";
 import {connect} from "@/dbConfig/dbConfig";
 import { revalidatePath } from "next/cache";
-import TaskListsModel from '@/models/TaskListModel';
+import TaskListsModel from '@/models/taskListModel';
 
 connect();
 

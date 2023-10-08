@@ -10,6 +10,19 @@ body, html {
 ::-webkit-scrollbar {
     width: 0; /* Remove scrollbar width */
   }
+.ReactModal__Overlay {
+    opacity: 0;
+    transition: opacity 500ms ease-in-out;
+}
+
+.ReactModal__Overlay--after-open{
+    opacity: 1;
+}
+
+.ReactModal__Overlay--before-close{
+    opacity: 0;
+}
+
 .container{
     width:100%;height:100vh;box-sizing: border-box;background-color:$appBackground;
 
@@ -75,6 +88,7 @@ body, html {
 // List Card
 .listCard{
     border:1px solid #eee;width:10rem;height:15rem;display:flex;justify-content:center;
+    border-radius:.5rem;
     flex-direction: column;align-items:center;box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
     &_name{
         font-weight:bold;
@@ -109,6 +123,52 @@ body, html {
     }
 }
 
+.deleteModal{
+    width:20rem;height:auto;border:1px solid #eee;margin-top:2rem;margin:4rem auto;border-radius:.2rem;
+    display:flex;flex-direction:column;justify-content:center;align-items:center;outline:none;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+    background-color:$white;
+    &_closeBtn{
+        position:absolute;margin-left:18rem;margin-top:.5rem;color:black;cursor:pointer;
+        transition:all .5s;
+        &:hover{
+            color:$secondaryRed;
+        }
+    }
+    &_actions{
+        width:18rem;height:100%;display:flex;
+        flex-direction:column;align-items:center;
+        &_title{
+            font-size:1rem;
+        }
+        &_taskName{
+            color:$secondaryRed;
+        }
+        &_btnContainer{
+            width:10rem;display:flex;flex-direction:"row";margin-bottom:1rem;
+            justify-content: space-between; align-items: center;margin-top:2rem;
+            &_yesBtn{
+                border:none;width:4rem;height:2rem;border-radius:.2rem;
+                background-color: $primaryGreen ;cursor:pointer;
+                display:flex;align-items: center;justify-content: center;
+                transition:all .5s; box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+                &:hover{
+                    background-color:$secondaryGreen;  box-shadow: 0px 6px 15px $secondaryGreen;
+                    color:white;
+                }
+            }
+            &_noBtn{
+                border:none;width:4rem;height:2rem;border-radius:.2rem;cursor:pointer;
+                background-color: $primaryRed;display:flex;align-items: center;justify-content: center;
+                transition:all .5s;box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+                &:hover{
+                    background-color: $secondaryRed;box-shadow: 0px 6px 15px $secondaryRed;
+                    color:white;
+                }
+            }
+        }
+    }
+}
 // Create tasks
 .createTasks{
     display:flex;flex-direction: column;justify-content:center;align-items:center;

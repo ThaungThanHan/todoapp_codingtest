@@ -3,10 +3,10 @@ import React, {useEffect,useState} from "react";
 import "../styles/app.scss";
 import {FaPlus} from "react-icons/fa6";
 import {FaArrowLeft} from "react-icons/fa6";
-import ClipLoader from "react-spinners/ClipLoader";
-import ListCard from "./ListCards";
-import CreateTasks from "./CreateTasks";
-import EditTasks from "./EditTasks";
+import PulseLoader from "react-spinners/PulseLoader";
+import ListCard from "./listCards";
+import CreateTasks from "./createTasks";
+import EditTasks from "./editTasks";
 import { getListsById } from "@/dbFunctions/dbFunctions";
 
 export default function ToDoLists({currentUser}){
@@ -22,6 +22,7 @@ export default function ToDoLists({currentUser}){
                 setLists(res);
             }).catch(err=>console.log(err));
         }
+        setTimeout(()=>{setIsFetching(false)},1000);
     },[currentUser,lists])
     return(
         <div className="lists">
@@ -47,29 +48,34 @@ export default function ToDoLists({currentUser}){
                 }
             </div>
             <div >
-                {isCreating ? 
-                    <CreateTasks currentUser={currentUser} setIsCreating={setIsCreating} />
-                     : isEditing ?
-                    <EditTasks editData={editData} setIsEditing={setIsEditing} /> :
-                    <div className="lists_container">
-                        {lists && lists.length > 0 ? lists.map(list=>(
-                            <ListCard key={list._id} setIsEditing={setIsEditing} setEditData={setEditData}
-                            list={list} />
-                        )) : 
-                        <p className="lists_container_emptyList">
-                            {isFetching ? 
-                                  <ClipLoader
-                                  color="red"
-                                  loading={isFetching}
-                                />
-                            :
-                            `Your list is empty. Click "Create tasks" to create a to-do list.`
-                            }
-                        </p>
-                        }
-                    </div>
-                }
-            </div>
+            {isCreating ? (
+    <CreateTasks currentUser={currentUser} setIsCreating={setIsCreating} />
+) : isEditing ? (
+    <EditTasks editData={editData} setIsEditing={setIsEditing} />
+) : (
+    <div className="lists_container">
+        {isFetching ? (
+            <PulseLoader
+                color="red"
+                loading={isFetching}
+                className="lists_container_emptyList"
+            />
+        ) : lists && lists.length > 0 ? (
+            lists.map((list) => (
+                <ListCard
+                    key={list._id}
+                    setIsEditing={setIsEditing}
+                    setEditData={setEditData}
+                    list={list}
+                />
+            ))
+        ) : (
+            <p className="lists_container_emptyList">
+                Your list is empty. Click "Create tasks" to create a to-do list.
+            </p>
+        )}
+    </div>
+)}            </div>
         </div>
     )
 }

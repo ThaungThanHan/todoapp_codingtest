@@ -2,7 +2,7 @@
 import "../styles/auth.scss";
 import { useRouter } from "next/navigation";
 import { useForm, SubmitHandler } from "react-hook-form"
-import ErrorText from "../components/auth/ErrorText";
+import ErrorText from "../components/auth/errorText";
 import { signupUser } from "@/dbFunctions/authFunctions";
 import {toast} from 'react-hot-toast';
 

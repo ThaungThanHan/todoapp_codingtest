@@ -2,8 +2,8 @@
 import {connect} from "@/dbConfig/dbConfig";
 import bcryptjs from "bcryptjs";
 import jwt from "jsonwebtoken";
-import UserModel from "@/models/UserModel";
-import User from "@/models/UserModel";
+import UserModel from "@/models/userModel";
+import User from "@/models/userModel";
 
 connect();
 
