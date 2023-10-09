@@ -1,5 +1,6 @@
 "use client";
 import React, {useState,useEffect} from "react";
+import { startTransition } from "react";
 import { getLoggedUser } from "@/dbFunctions/authFunctions";
 import Cookies from "js-cookie";
 import "./styles/app.scss";
@@ -15,14 +16,14 @@ export default function Home() {
     username:""
   });
 
-  // useEffect(()=>{
-  //     const token = Cookies.get('authToken');
-  //     getLoggedUser(token).then((res:any)=>{
-  //         setCurrentUser(res);
-  //     }).catch(err=>{
-  //         console.log(err);
-  //     })
-  // },[])
+  useEffect(()=>{
+      const token = Cookies.get('authToken');
+      getLoggedUser(token).then((res:any)=>{
+          setCurrentUser(res);
+      }).catch(err=>{
+          console.log(err);
+      })
+  },[])
   return (
     <div className="container">
       <div className="app_container">

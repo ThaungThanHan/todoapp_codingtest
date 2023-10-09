@@ -6,7 +6,7 @@ import ErrorText from "../components/auth/errorText";
 import { loginUser } from "@/dbFunctions/authFunctions";
 import {toast} from 'react-hot-toast';
 import Cookies from 'js-cookie';
-
+import { startTransition } from 'react';
 export default function Login() {
     const router = useRouter();
     type signinInput = {
@@ -15,7 +15,7 @@ export default function Login() {
       }
     const handleLogin = (data:any) => {
       const loadingToast = toast.loading('Logging in...');
-      loginUser(data).then(res=>{
+      startTransition(()=>{loginUser(data).then(res=>{
         Cookies.set('authToken',res,{expires:7});
         toast.dismiss(loadingToast);
         toast.success("Login successful!",{
@@ -26,7 +26,7 @@ export default function Login() {
       }).catch(err=>{
         toast.dismiss(loadingToast);
         toast.error(err.message,{duration:2000});
-      })
+      })})
     }
     const { register, handleSubmit, formState: { errors } } = useForm<signinInput>();
     const onSubmit: SubmitHandler<signinInput> = (data) => handleLogin(data);
