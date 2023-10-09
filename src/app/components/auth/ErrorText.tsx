@@ -1,6 +1,11 @@
 import {FaCircleExclamation} from "react-icons/fa6";
 import "../../styles/auth.scss";
-export default function ErrorText({text}){
+
+type errorTextProps = {
+    text:string
+}
+
+export default function ErrorText({text}:errorTextProps){
     return(
         <p className="auth_form_input_errorText">
             <FaCircleExclamation className="auth_form_input_errorText_icon"

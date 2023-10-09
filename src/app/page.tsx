@@ -6,11 +6,18 @@ import "./styles/app.scss";
 import UserInfo from "./components/userInfo";
 import ToDoLists from "./components/toDoLists";
 export default function Home() {
-  const [currentUser,setCurrentUser] = useState(null);
+  type CurrentUser ={
+        _id:string,
+        username:string
+    }
+  const [currentUser,setCurrentUser] = useState<CurrentUser>({
+    _id:"",
+    username:""
+  });
 
   useEffect(()=>{
       const token = Cookies.get('authToken');
-      getLoggedUser(token).then(res=>{
+      getLoggedUser(token).then((res:any)=>{
           setCurrentUser(res);
       }).catch(err=>{
           console.log(err);

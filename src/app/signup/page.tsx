@@ -1,23 +1,26 @@
 'use client';
 import "../styles/auth.scss";
 import { useRouter } from "next/navigation";
-import { useForm, SubmitHandler } from "react-hook-form"
+import { useForm, SubmitHandler  } from "react-hook-form"
 import ErrorText from "../components/auth/errorText";
 import { signupUser } from "@/dbFunctions/authFunctions";
 import {toast} from 'react-hot-toast';
 
 export default function Signup() {
     const router = useRouter();
-    interface signupInput {
+
+    type signupInput = {
         username: string
         email:string
         password: string
         confirmpassword:string
       }
-    const { register, handleSubmit,watch, formState: { errors } } = useForm();
+
+
+    const { register, handleSubmit,watch, formState: { errors } } = useForm<signupInput>();
     const handleSignUp = (data:any) => {
         const loadingToast = toast.loading("Signing up...");
-        signupUser(data).then(res=>{
+        signupUser(data).then((res:any)=>{
             toast.dismiss(loadingToast);
             toast.success("Signup successful!",{
                 duration:2000,
@@ -67,7 +70,7 @@ export default function Signup() {
                 </div> 
                 <div className="auth_form_input">
                     <label htmlFor="confirmPass" className="auth_form_input_label">Confirm Password</label>
-                    <input id="confirmPass" {...register("confirmPassword", { required: true,
+                    <input id="confirmPass" {...register("confirmpassword", { required: true,
                     validate: (value:string) => {
                         if(watch("password") != value){
                             return "Password do not match"
@@ -75,9 +78,9 @@ export default function Signup() {
                     } })} 
                      type="password" className="auth_form_input_inputbox" 
                     placeholder="Please enter password again" />
-                    {errors?.confirmPassword?.type === "required" && 
+                    {errors?.confirmpassword?.type === "required" && 
                     <ErrorText text="Confirm Password is required!" />}
-                    {errors?.confirmPassword?.type === "validate" && 
+                    {errors?.confirmpassword?.type === "validate" && 
                     <ErrorText text="Passwords do not match!" />}
 
                 </div> 

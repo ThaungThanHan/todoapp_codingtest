@@ -4,9 +4,26 @@ import { updateList } from "@/dbFunctions/dbFunctions";
 import {toast} from 'react-hot-toast';
 import { uuid } from 'uuidv4';
 
-export default function EditTasks({editData, setIsEditing}){
+type Task = {
+    id:string,
+    status:string,
+    task:any
+}
+
+type EditData = {
+    name:string,
+    tasks:Task[],
+    listId:string,
+}
+
+type editTasksProps = {
+    editData: EditData,
+    setIsEditing:(isEditing:boolean) => void;
+}
+
+export default function EditTasks({editData, setIsEditing}:editTasksProps){
     const [editedList,setEditedList] = useState({
-        listName:editData.name,
+        listName:editData?.name,
         tasks:editData.tasks,
         listId:editData.listId,
     })
@@ -18,10 +35,10 @@ export default function EditTasks({editData, setIsEditing}){
         }))
     }
     const [taskToAdd,setTaskToAdd] = useState("");
-    const [hoveredTask,setHoveredTask] = useState(null);
+    const [hoveredTask,setHoveredTask] = useState<string | null>(null);
 
     const onAddTasks = (task: string) => {
-        setEditedList((prevList)=>({
+        setEditedList((prevList:any)=>({
             ...prevList,
             tasks:[...prevList.tasks, {
                 "id":uuid(),
@@ -32,14 +49,14 @@ export default function EditTasks({editData, setIsEditing}){
         setTaskToAdd("");
       };
 
-    const deleteFromList = (taskId:BigInteger) =>{
-        const updatedList = editedList.tasks.filter(task=>task.id != taskId);
-        setEditedList((prevList)=>({
+    const deleteFromList = (taskId:string) =>{
+        const updatedList = editedList.tasks.filter((task:any)=>task.id != taskId);
+        setEditedList((prevList:any)=>({
             ...prevList,
             tasks:updatedList
         }))
     }  
-    const handleStatusChange = (taskId) => {
+    const handleStatusChange = (taskId:any) => {
         const taskIndex = editedList.tasks.findIndex((task)=>task.id == taskId);
         if(taskIndex != -1 && editedList.tasks[taskIndex].status == "finished"){
             editedList.tasks[taskIndex].status = "unfinished";

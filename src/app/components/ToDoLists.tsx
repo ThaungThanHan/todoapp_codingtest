@@ -9,16 +9,22 @@ import CreateTasks from "./createTasks";
 import EditTasks from "./editTasks";
 import { getListsById } from "@/dbFunctions/dbFunctions";
 
-export default function ToDoLists({currentUser}){
-    const [isCreating,setIsCreating] = useState(false);
-    const [isEditing, setIsEditing] = useState(false);
-    const [editData,setEditData] = useState({});
+type todoListsProps = {
+    currentUser: {
+        _id:string
+    };
+}
+
+export default function ToDoLists({currentUser}:todoListsProps){
+    const [isCreating,setIsCreating] = useState<boolean | null>(false);
+    const [isEditing, setIsEditing] = useState<boolean | null>(false);
+    const [editData,setEditData] = useState({name:"",tasks:[],listId:""});
     const [isFetching, setIsFetching] = useState(true);
     const [lists,setLists] = useState([]);
 
     useEffect(()=>{
         if(currentUser){
-            getListsById(currentUser._id).then(res=>{
+            getListsById(currentUser._id).then((res:any)=>{
                 setLists(res);
             }).catch(err=>console.log(err));
         }
@@ -50,7 +56,7 @@ export default function ToDoLists({currentUser}){
             <div >
             {isCreating ? (
     <CreateTasks currentUser={currentUser} setIsCreating={setIsCreating} />
-) : isEditing ? (
+) : editData !== null && (isEditing ? (
     <EditTasks editData={editData} setIsEditing={setIsEditing} />
 ) : (
     <div className="lists_container">
@@ -61,7 +67,7 @@ export default function ToDoLists({currentUser}){
                 className="lists_container_emptyList"
             />
         ) : lists && lists.length > 0 ? (
-            lists.map((list) => (
+            lists.map((list:any) => (
                 <ListCard
                     key={list._id}
                     setIsEditing={setIsEditing}
@@ -75,7 +81,7 @@ export default function ToDoLists({currentUser}){
             </p>
         )}
     </div>
-)}            </div>
+))}            </div>
         </div>
     )
 }

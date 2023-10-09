@@ -9,7 +9,7 @@ import Cookies from 'js-cookie';
 
 export default function Login() {
     const router = useRouter();
-    interface signinInput {
+    type signinInput = {
         email:string
         password: string
       }
@@ -28,7 +28,7 @@ export default function Login() {
         toast.error(err.message,{duration:2000});
       })
     }
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { register, handleSubmit, formState: { errors } } = useForm<signinInput>();
     const onSubmit: SubmitHandler<signinInput> = (data) => handleLogin(data);
     return (
       <div className="auth_container">

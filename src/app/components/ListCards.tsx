@@ -8,7 +8,25 @@ import { deleteList } from "@/dbFunctions/dbFunctions";
 import DeleteModal from "./deleteModal";
 import {toast} from 'react-hot-toast';
 
-export default function ListCards({list,setIsEditing,setEditData}){
+type Task = {
+    id:string,
+    status:string,
+}
+
+type listCardsProps = {
+    list: {
+        _id:string,
+        listName:string,
+        tasks:Task[],
+        listId:string,
+        unfinishedTasks:number,
+        finishedTasks:number,
+    },
+    setIsEditing:(isEditing:boolean) => void;
+    setEditData:(editData:any) => void;
+}
+
+export default function ListCards({list,setIsEditing,setEditData}:listCardsProps){
     const [isModal,setIsModal] = useState(false);
     ChartJS.register(ArcElement, Tooltip, Legend);
     const chartData = {

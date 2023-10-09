@@ -5,7 +5,14 @@ import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
 import {toast} from 'react-hot-toast';
 
-export default function UserInfo({currentUser}){
+type userInfoProps = {
+    currentUser: {
+        _id:string,
+        username:string
+    };
+}
+
+export default function UserInfo({currentUser}:userInfoProps){
     const router = useRouter();
     const handleLogoutUser = () => {
         const loadingToast = toast.loading("Logging out...");
@@ -20,7 +27,10 @@ export default function UserInfo({currentUser}){
     return(
         <div className="userInfo">
             <p className="userInfo_welcomeText">Hello, {currentUser && currentUser.username}</p>
-            <p onClick={()=>handleLogoutUser()} className="userInfo_logout">Logout</p>
+            <p onClick={()=>handleLogoutUser()} className="userInfo_logout">
+                Logout
+            </p>
         </div>
+
     )
 }

@@ -2,7 +2,19 @@ import Modal from "react-modal";
 import React from "react";
 import "../styles/app.scss";
 import {FaWindowClose} from "react-icons/fa";
-export default function deleteModal({setIsModal,isModal,list,handleDelete}){
+
+type List = {
+    listName:string
+}
+
+type deleteModalProps = {
+    setIsModal:(isModal:boolean) => void,
+    isModal:boolean,
+    list:List,
+    handleDelete:(list:object) => void
+}
+
+export default function deleteModal({setIsModal,isModal,list,handleDelete}:deleteModalProps){
     return (
     <Modal ariaHideApp={false} isOpen={isModal} className="deleteModal">
         <div className="deleteModal_actions">

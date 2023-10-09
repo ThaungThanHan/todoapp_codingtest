@@ -1,12 +1,15 @@
 import React, {useEffect,useState} from "react";
 import {FaPlus} from "react-icons/fa6";
 import {FaTrash} from "react-icons/fa6";
-import { uuid } from 'uuidv4';
+import { v4 as uuidv4 } from 'uuid';
 import {toast} from 'react-hot-toast';
 import { addListToDB } from "@/dbFunctions/dbFunctions";
 
-
-export default function CreateTasks({setIsCreating, currentUser}){
+type createTaksProps = {
+    setIsCreating:(isCreating:boolean) => void;
+    currentUser: {_id:string};
+}
+export default function CreateTasks({setIsCreating, currentUser}:createTaksProps){
     interface listState{
         listName:string,
         tasks:object[],
@@ -29,7 +32,7 @@ export default function CreateTasks({setIsCreating, currentUser}){
         setList((prevList)=>({
             ...prevList,
             tasks:[...prevList.tasks, {
-                "id":uuid(),
+                "id":uuidv4(),
                 "task":task,
                 "status":"unfinished"
             }],
@@ -53,7 +56,7 @@ export default function CreateTasks({setIsCreating, currentUser}){
         
     }
     const deleteFromList = (taskId:BigInteger) =>{
-        const updatedList = list.tasks.filter(task=>task.id != taskId);
+        const updatedList = list.tasks.filter((task:any)=>task.id != taskId);
         setList((prevList)=>({
             ...prevList,
             tasks:updatedList,
@@ -81,7 +84,7 @@ export default function CreateTasks({setIsCreating, currentUser}){
                 </div>
             </div>
             <div className="createTasks_tasksContainer">
-                {list.tasks.map(task=>(
+                {list.tasks.map((task:any)=>(
                     <div onMouseEnter={()=>setHoveredTask(task.id)}
                     onMouseLeave={()=>setHoveredTask(null)}
                     className="createTasks_tasksContainer_tasks" key={task.id}>
