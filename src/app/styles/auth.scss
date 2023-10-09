@@ -56,3 +56,28 @@ body, html {
         }
     }
 }
+
+// Responsive
+@media screen and (max-width:$sm) {
+    .auth_form{
+        max-width:100%;height:auto;
+        &_title{
+            font-size:2rem;
+        }
+        &_input{
+            max-width:100%;
+        }
+        &_input_label{
+            font-size:1.5rem;max-width:100%;
+        }
+        &_input_inputbox{
+            height:3rem;font-size:1.5rem;max-width:100%;
+        }
+        &_input_errorText{
+            font-size:1.2rem;max-width:15rem;
+        }
+        &_redirect{
+            font-size:1.2rem;
+        }
+    }
+}
