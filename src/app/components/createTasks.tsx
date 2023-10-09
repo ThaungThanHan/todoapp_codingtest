@@ -18,7 +18,7 @@ export default function CreateTasks({setIsCreating, currentUser}:createTaksProps
     const [list,setList] = useState<listState>({
         listName:"",
         tasks:[],
-        userId:currentUser._id
+        userId:currentUser?._id
     })
     const [taskToAdd,setTaskToAdd] = useState("");
     const [hoveredTask,setHoveredTask] = useState(null);
@@ -65,7 +65,6 @@ export default function CreateTasks({setIsCreating, currentUser}:createTaksProps
 
     return(
         <div className="createTasks">
-            {/* <p className="createTasks_title">Create a list</p> */}
             <input value={list.listName} name="listName"
             onChange={(e)=>onChangeName(e)}
             className="createTasks_nameInput" placeholder="Enter list name"/>

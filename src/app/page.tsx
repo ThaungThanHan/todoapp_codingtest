@@ -15,14 +15,14 @@ export default function Home() {
     username:""
   });
 
-  useEffect(()=>{
-      const token = Cookies.get('authToken');
-      getLoggedUser(token).then((res:any)=>{
-          setCurrentUser(res);
-      }).catch(err=>{
-          console.log(err);
-      })
-  },[])
+  // useEffect(()=>{
+  //     const token = Cookies.get('authToken');
+  //     getLoggedUser(token).then((res:any)=>{
+  //         setCurrentUser(res);
+  //     }).catch(err=>{
+  //         console.log(err);
+  //     })
+  // },[])
   return (
     <div className="container">
       <div className="app_container">
