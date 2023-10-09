@@ -3,8 +3,8 @@ import React, {useState,useEffect} from "react";
 import { getLoggedUser } from "@/dbFunctions/authFunctions";
 import Cookies from "js-cookie";
 import "./styles/app.scss";
-import UserInfo from "./components/userInfo";
-import ToDoLists from "./components/toDoLists";
+import ToDoLists from "@/app/components/toDoLists";
+import UserInfo from "@/app/components/userInfo";
 export default function Home() {
   type CurrentUser ={
         _id:string,
@@ -22,11 +22,10 @@ export default function Home() {
       }).catch(err=>{
           console.log(err);
       })
-  },[currentUser])
+  },[])
   return (
     <div className="container">
       <div className="app_container">
-
         <UserInfo currentUser={currentUser}/>
         <ToDoLists currentUser={currentUser}/>
       </div>

@@ -22,14 +22,28 @@ export default function ToDoLists({currentUser}:todoListsProps){
     const [isFetching, setIsFetching] = useState(true);
     const [lists,setLists] = useState([]);
 
-    useEffect(()=>{
-        if(currentUser){
-            getListsById(currentUser._id).then((res:any)=>{
+    useEffect(() => {
+        const fetchData = async () => {
+          if (currentUser) {
+            try {
+              const res = await getListsById(currentUser._id);
+              if (isMounted) {
                 setLists(res);
-            }).catch(err=>console.log(err));
-        }
-        setTimeout(()=>{setIsFetching(false)},1000);
-    },[currentUser,lists])
+                setIsFetching(false);
+              }
+            } catch (err) {
+              console.log(err);
+            }
+          }
+        };
+      
+        let isMounted = true;
+        fetchData();
+      
+        return () => {
+          isMounted = false;
+        };
+      }, [currentUser,lists]);
     return(
         <div className="lists">
             <div className="lists_titleContainer">
@@ -57,7 +71,7 @@ export default function ToDoLists({currentUser}:todoListsProps){
             {isCreating ? (
     <CreateTasks currentUser={currentUser} setIsCreating={setIsCreating} />
 ) : editData !== null && (isEditing ? (
-    <EditTasks editData={editData} setIsEditing={setIsEditing} />
+    <EditTasks currentUser={currentUser} editData={editData} setIsEditing={setIsEditing} />
 ) : (
     <div className="lists_container">
         {isFetching ? (

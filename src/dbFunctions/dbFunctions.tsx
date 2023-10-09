@@ -6,7 +6,7 @@ connect();
 
 export async function addListToDB(data:any){
     try{
-        const existingList = await TaskListsModel.find({listName:data.listName});
+        const existingList = await TaskListsModel.find({userId:data.userId,listName:data.listName});
         if(existingList.length > 0){
             throw new Error("Task list with same name exists")
         }
@@ -44,26 +44,10 @@ export async function getListsById(userId:any){
     }
 }
 
-export async function getListById(listId:any){
-    try{
-        const list = await TaskListsModel.findById(listId);
-        const result = {
-            _id:list._id.toString(),
-            listName:list.listName,
-            tasks:list.tasks,
-            unfinishedTasks:list.unfinishedTasks,
-            finishedTasks:list.finishedTasks,
-        }
-        return result;
-    }catch(err){
-        console.error(err);
-    }
-
-}
-
 export async function updateList(listId:any, data:any){
     try{
-        const existingList = await TaskListsModel.findOne({ _id: { $ne: data.listId }, listName: data.listName });
+        const existingList = await TaskListsModel.findOne({ userId:data.userId, 
+        _id: { $ne: data.listId }, listName: data.listName });
         if(existingList){
             throw new Error("Task list with same name exists")
         }

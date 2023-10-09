@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 const taskListSchema = new mongoose.Schema({
-    listName:{type:String, required:[true, "Please provide name for task list"], unique:true},
+    listName:{type:String, required:[true, "Please provide name for task list"]},
     tasks:{type:Array,required:[true,"Please provide tasks for task list"]},
     userId:{type:String,required:[true]},
     unfinishedTasks:{type:Number,required:[true]},

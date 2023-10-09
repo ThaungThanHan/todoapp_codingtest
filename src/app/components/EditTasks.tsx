@@ -18,14 +18,16 @@ type EditData = {
 
 type editTasksProps = {
     editData: EditData,
-    setIsEditing:(isEditing:boolean) => void;
+    setIsEditing:(isEditing:boolean) => void,
+    currentUser:{_id:string};
 }
 
-export default function EditTasks({editData, setIsEditing}:editTasksProps){
+export default function EditTasks({editData, currentUser, setIsEditing}:editTasksProps){
     const [editedList,setEditedList] = useState({
         listName:editData?.name,
         tasks:editData.tasks,
         listId:editData.listId,
+        userId:currentUser._id
     })
 
     const onChangeName = (e:any) => {
