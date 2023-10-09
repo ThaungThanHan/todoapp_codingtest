@@ -6,9 +6,6 @@ export async function connect(){
             dbName:"todoapp_codingtest"
         });
         const connection = mongoose.connection;
-        connection.on("connected",()=>{
-            console.log("CONNECTED!")
-        })
         connection.on("error",(err)=>{
             console.log(err)
             process.exit();

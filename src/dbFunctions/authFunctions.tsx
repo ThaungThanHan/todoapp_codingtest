@@ -30,8 +30,7 @@ export async function signupUser(data:any){
             password:hashedPassword
         })
     
-        const savedUser = await newUser.save();
-        console.log(savedUser);    
+        const savedUser = await newUser.save();  
     }catch(err){
         throw err;
     }

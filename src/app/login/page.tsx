@@ -55,7 +55,7 @@ export default function Login() {
                 </button>
             </form>
         <p className="auth_form_redirect">
-            Don't have an account? <a href="/signup" className="auth_form_redirect_link">Join now!</a>
+            Don&apos;t have an account? <a href="/signup" className="auth_form_redirect_link">Join now!</a>
         </p>
           </div>
       </div>

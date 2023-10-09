@@ -183,9 +183,6 @@ body, html {
 // Create tasks
 .createTasks{
     display:flex;flex-direction: column;justify-content:center;align-items:center;
-    // &_title{
-    //     font-size:2rem;margin-bottom:.5rem;
-    // }
     &_nameInput{
         width:30rem;height:3rem;border:none;border-bottom:1px solid #eee;background-color: transparent;
         text-align:center;font-size:1.5rem;margin-bottom:1rem;
@@ -235,7 +232,7 @@ body, html {
             
             &_tasksDeleteShown{
                 display:flex;cursor:pointer;border-top-right-radius: 2rem;
-                border-bottom-right-radius: 2rem;
+                border-bottom-right-radius: 2rem;opacity:1;
                 height:3rem; width:5rem;background-color:$primaryRed;
                 justify-content: center;align-items: center;
                 color:white;transition:all .5s;
@@ -244,7 +241,7 @@ body, html {
                 }
             }
             &_tasksDeleteHidden{
-                display:none;
+                opacity:0;color:white;
             }
         }
     }

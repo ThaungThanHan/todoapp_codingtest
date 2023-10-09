@@ -77,7 +77,7 @@ export default function ToDoLists({currentUser}:todoListsProps){
             ))
         ) : (
             <p className="lists_container_emptyList">
-                Your list is empty. Click "Create tasks" to create a to-do list.
+                Your list is empty. Click &quot;Create tasks&quot; to create a to-do list.
             </p>
         )}
     </div>

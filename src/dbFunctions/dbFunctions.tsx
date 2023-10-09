@@ -1,6 +1,5 @@
 "use server";
 import {connect} from "@/dbConfig/dbConfig";
-import { revalidatePath } from "next/cache";
 import TaskListsModel from '@/models/taskListModel';
 
 connect();
@@ -29,7 +28,7 @@ export async function addListToDB(data:any){
 export async function getListsById(userId:any){
     try{
         const lists = await TaskListsModel.find({userId:userId});
-        const response = [];
+        const response:any = [];
         lists.map(list=>{
             response.push({
                 _id:list._id.toString(),
@@ -41,7 +40,7 @@ export async function getListsById(userId:any){
         })
         return response;
     }catch(error){
-        throw err;
+        throw error;
     }
 }
 
@@ -68,8 +67,8 @@ export async function updateList(listId:any, data:any){
         if(existingList){
             throw new Error("Task list with same name exists")
         }
-        const unfinishedTasks = data.tasks.filter((task)=> task.status == "unfinished").length; 
-        const finishedTasks = data.tasks.filter((task)=> task.status == "finished").length; 
+        const unfinishedTasks = data.tasks.filter((task:any)=> task.status == "unfinished").length; 
+        const finishedTasks = data.tasks.filter((task:any)=> task.status == "finished").length; 
         const updateList = await TaskListsModel.findByIdAndUpdate(listId,{
             listName:data.listName,
             tasks:data.tasks,
