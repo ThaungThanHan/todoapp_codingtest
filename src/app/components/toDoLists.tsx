@@ -48,7 +48,7 @@ export default function ToDoLists({currentUser}:todoListsProps){
         <div className="lists">
             <div className="lists_titleContainer">
                 <p className="lists_titleContainer_title">
-                    {lists.length > 0 ? `You have ${lists.length} to-do lists!` : "You have no tasks"}
+                    {lists && lists.length > 0 ? `You have ${lists.length} to-do lists!` : "You have no tasks"}
                 </p>
                 {isCreating || isEditing ?
                     <div onClick={()=>{setIsCreating(false),setIsEditing(false)}}
