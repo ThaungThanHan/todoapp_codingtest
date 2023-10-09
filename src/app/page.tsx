@@ -1,6 +1,5 @@
 "use client";
 import React, {useState,useEffect} from "react";
-import { startTransition } from "react";
 import { getLoggedUser } from "@/dbFunctions/authFunctions";
 import Cookies from "js-cookie";
 import "./styles/app.scss";

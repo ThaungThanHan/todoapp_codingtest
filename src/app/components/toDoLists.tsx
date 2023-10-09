@@ -26,7 +26,7 @@ export default function ToDoLists({currentUser}:todoListsProps){
         const fetchData = async () => {
           if (currentUser) {
             try {
-              const res = await getListsById(currentUser._id);
+              const res = await getListsById(currentUser && currentUser._id);
               if (isMounted) {
                 setLists(res);
                 setIsFetching(false);

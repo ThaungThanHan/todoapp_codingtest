@@ -27,7 +27,7 @@ export default function EditTasks({editData, currentUser, setIsEditing}:editTask
         listName:editData?.name,
         tasks:editData.tasks,
         listId:editData.listId,
-        userId:currentUser._id
+        userId:currentUser?._id
     })
 
     const onChangeName = (e:any) => {

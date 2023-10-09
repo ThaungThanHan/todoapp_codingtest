@@ -4,7 +4,6 @@ import bcryptjs from "bcryptjs";
 import jwt from "jsonwebtoken";
 import UserModel from "@/models/userModel";
 import User from "@/models/userModel";
-
 connect();
 
 export async function signupUser(data:any){
