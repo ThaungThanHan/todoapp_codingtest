@@ -1,6 +1,6 @@
 "use client";
 import "../styles/app.scss";
-import React, {useState,useEffect} from "react";
+import React from "react";
 import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
 import {toast} from 'react-hot-toast';

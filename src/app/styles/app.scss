@@ -188,7 +188,7 @@ body, html {
         font-size:1.2rem;
     }
     &_nameInput{
-        width:30rem;height:3rem;border:none;border-bottom:1px solid #eee;background-color: transparent;
+        width:30rem;height:3rem;border:none;border-bottom:1px solid $secondaryGreen;background-color: transparent;
         text-align:center;font-size:1.5rem;margin-bottom:1rem;color:black;
         &:focus{
             outline:none;
