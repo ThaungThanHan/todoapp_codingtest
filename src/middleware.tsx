@@ -5,7 +5,7 @@ import Cookies from "js-cookie";
 
 export function  middleware(request:NextRequest){
     const path = request.nextUrl.pathname;
-    const isPublicPath = path === "/login" || path === "/signup";
+    const isPublicPath = path === "/login" || path === "/signup" || path === "/forgotpasswordemail" || path === "/forgotpassword" || path === "/verify";
     const token = request?.cookies?.get('authToken')?.value || "";
     if(isPublicPath && token){
         return NextResponse.redirect(new URL('/',request.nextUrl));
@@ -19,6 +19,9 @@ export const config = {        // add paths as matcher.
     matcher:[
         '/',
         '/login',
-        '/signup'
+        '/signup',
+        '/forgotpasswordemail',
+        '/forgotpassword',
+        '/verify'
     ],
 }

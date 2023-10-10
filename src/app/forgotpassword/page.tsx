@@ -7,7 +7,7 @@ import ErrorText from "../components/auth/errorText";
 import { forgotPassword } from "@/dbFunctions/authFunctions";
 import {toast} from 'react-hot-toast';
 
-export default function ConfirmPassword() {
+export default function ForgotPassword() {
     const [token, setToken] = useState("");
     const router = useRouter();
     type confirmPasswordInput = {

@@ -51,7 +51,7 @@ export default function Login() {
                     placeholder="Please enter password" />
                     {errors?.password?.type === "required" && <ErrorText text="Password is required!" />}
                 </div> 
-                <a href="/confirmpasswordemail" className="auth_form_redirect_link">
+                <a href="/forgotpasswordemail" className="auth_form_redirect_link">
                   Forgot password
                 </a>
                 <button className="auth_form_submit">

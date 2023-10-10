@@ -79,7 +79,7 @@ export default function ToDoLists({currentUser}:todoListsProps){
     <div className="lists_container">
         {isFetching ? (
             <PulseLoader
-                color="red"
+                color="#37d7b2"
                 loading={isFetching}
                 className="lists_container_emptyList"
             />

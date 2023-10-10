@@ -6,7 +6,7 @@ import ErrorText from "../components/auth/errorText";
 import {toast} from 'react-hot-toast';
 import { sendEmail } from "@/dbFunctions/mailer";
 
-export default function ConfirmPasswordEmail() {
+export default function ForgotPasswordEmail() {
     const router = useRouter();
     type emailInput = {
         email:string
