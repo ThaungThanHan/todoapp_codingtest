@@ -48,7 +48,7 @@ export async function loginUser(data:any){
         }
 
         if(!user.isVerified){
-            throw new Error("Please verify first.");
+            throw new Error("Invalid.");
         }
     
         const tokenData = {
@@ -113,7 +113,7 @@ export async function forgotPassword(token:any,data:any){
         }
         const sameAsOld = await bcryptjs.compare(data.password,user.password);
         if(sameAsOld){
-            throw new Error("Choose a new password")
+            throw new Error("Invalid")
         }
         const salt = await bcryptjs.genSalt(10);
         const hashedPassword = await bcryptjs.hash(data.password,salt); 
