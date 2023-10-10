@@ -40,11 +40,11 @@ export async function loginUser(data:any){
         const {email, password} = data;
         const user = await UserModel.findOne({email});
         if(!user){
-            throw new Error("Invalid email or password.");
+            throw new Error("Invalid");
         }
         const validPassword = await bcryptjs.compare(password,user.password);
         if(!validPassword){
-            throw new Error("Invalid email or password.")
+            throw new Error("Invalid")
         }
 
         if(!user.isVerified){
