@@ -22,7 +22,7 @@ export async function sendEmail({email,emailType,userId}:any){
             await UserModel.findByIdAndUpdate(userId, 
                 {verifyToken: hashedToken, verifyTokenExpiry: Date.now() + 3600000})
         }else if(emailType == "FORGOT"){
-            var userByEmail = await UserModel.findOne({email});
+            var userByEmail = await UserModel.findOne({email:email.toLowerCase()});
             if(!userByEmail){
                 throw new Error("Invalid Email");
             }
@@ -34,7 +34,7 @@ export async function sendEmail({email,emailType,userId}:any){
 
         const mailOptions = {
             from: 'hanvotingapp@gmail.com',
-            to: email,
+            to: email.toLowerCase(),
             subject: emailType === "VERIFY" ? "Verify your email" : "Reset your password",
             html: `<p>Hello from Todoapp-codingtest!<br/>Click <a href="${process.env.DOMAIN}/${emailType == "VERIFY" ? "verify" : "forgotpassword"}?token=${emailType == "VERIFY" ? hashedToken :
             hashedEmailToken}">here</a> to ${emailType === "VERIFY" ? "verify your email" : "reset your password"}

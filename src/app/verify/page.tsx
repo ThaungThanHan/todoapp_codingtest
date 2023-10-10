@@ -10,12 +10,11 @@ export default function Verify(){
     const [error,setError] = useState(false);
 
     const verifyEmail = async() => {
-        try{
-            await verifyUser(token).then((res:any)=>{
-                setVerified(true);
-            })
-        }catch(err){
+        const result = await verifyUser(token);
+        if(result?.error){
             setError(true);
+        }else{
+            setVerified(true);
         }
     }
 
@@ -35,9 +34,9 @@ export default function Verify(){
         <div className="auth_form">
           <h2 className="auth_form_title">
               {verified ? `You are Verified!` : `The verification is invalid.`}
-              <button onClick={()=> router.push("/login") } className="auth_form_submit">
+              {verified ? <button onClick={()=> router.push("/login") } className="auth_form_submit">
                     Log in
-              </button>
+              </button> : null}
           </h2>
         </div>
         </div>

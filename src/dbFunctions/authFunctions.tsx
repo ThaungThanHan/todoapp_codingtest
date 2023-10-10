@@ -9,7 +9,7 @@ export async function signupUser(data:any){
     try{
         const {username,email,password} = data; 
     
-        const userWithEmail = await UserModel.findOne({email});
+        const userWithEmail = await UserModel.findOne({email:email.toLowerCase()});
         if(userWithEmail){
             throw new Error("User already exists.");
         }
@@ -23,8 +23,8 @@ export async function signupUser(data:any){
         const hashedPassword = await bcryptjs.hash(password,salt); 
     
         const newUser = new UserModel({
-            username,
-            email,
+            email:email.toLowerCase(),
+            username:username,
             password:hashedPassword
         })
     
@@ -40,7 +40,7 @@ export async function signupUser(data:any){
 export async function loginUser(data:any){
     try{
         const {email, password} = data;
-        const user = await UserModel.findOne({email});
+        const user = await UserModel.findOne({email:email.toLowerCase()});
         if(!user){
             throw new Error("Invalid email or password");
         }
@@ -56,7 +56,7 @@ export async function loginUser(data:any){
         const tokenData = {
             id:user._id.toString(),
             username:user.username,
-            email:user.email
+            email:user.email.toLowerCase()
         }
 
         const token = await jwt.sign(tokenData,process.env.TOKEN_SECRET,{expiresIn:"1d"});
