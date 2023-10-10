@@ -8,6 +8,7 @@ import ListCard from "./listCards";
 import CreateTasks from "./createTasks";
 import EditTasks from "./editTasks";
 import { getListsById } from "@/dbFunctions/dbFunctions";
+import debounce from "lodash.debounce";
 
 type todoListsProps = {
     currentUser: {
@@ -39,12 +40,12 @@ export default function ToDoLists({currentUser}:todoListsProps){
         };
       
         let isMounted = true;
-        fetchData();
-      
+        const debounceFunction = debounce(()=>fetchData(),2000);
+        debounceFunction();
         return () => {
           isMounted = false;
         };
-      }, [currentUser,lists]);
+      }, [currentUser, lists]);
     return(
         <div className="lists">
             <div className="lists_titleContainer">

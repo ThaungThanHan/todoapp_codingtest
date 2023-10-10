@@ -1,7 +1,7 @@
 "use server";
 import {connect} from "@/dbConfig/dbConfig";
 import TaskListsModel from '@/models/taskListModel';
-
+import { revalidatePath } from "next/cache";
 connect();
 
 export async function addListToDB(data:any){
