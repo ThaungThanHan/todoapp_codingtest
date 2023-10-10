@@ -18,7 +18,8 @@ type todoListsProps = {
 export default function ToDoLists({currentUser}:todoListsProps){
     const [isCreating,setIsCreating] = useState<boolean | null>(false);
     const [isEditing, setIsEditing] = useState<boolean | null>(false);
-    const [editData,setEditData] = useState({name:"",tasks:[],listId:""});
+    const [editData,setEditData] = useState({name:"",tasks:[],listId:"",unfinishedTasks:0,
+                                            finishedTasks:0});
     const [isFetching, setIsFetching] = useState(true);
     const [lists,setLists] = useState([]);
 
@@ -48,7 +49,8 @@ export default function ToDoLists({currentUser}:todoListsProps){
         <div className="lists">
             <div className="lists_titleContainer">
                 <p className="lists_titleContainer_title">
-                    {lists && lists.length > 0 ? `You have ${lists.length} to-do lists!` : "You have no tasks"}
+                    {isCreating ? `Create a task list` : isEditing ? `Update a task list` :
+                    lists && lists.length > 0 ? `You have ${lists.length} to-do lists!` : "You have no tasks"}
                 </p>
                 {isCreating || isEditing ?
                     <div onClick={()=>{setIsCreating(false),setIsEditing(false)}}

@@ -2,7 +2,8 @@ import React, {useState} from "react";
 import {FaPlus,FaTrash} from "react-icons/fa6";
 import { updateList } from "@/dbFunctions/dbFunctions";
 import {toast} from 'react-hot-toast';
-import { uuid } from 'uuidv4';
+import { v4 as uuidv4 } from 'uuid';
+import taskLists from "@/models/taskListModel";
 
 type Task = {
     id:string,
@@ -14,6 +15,8 @@ type EditData = {
     name:string,
     tasks:Task[],
     listId:string,
+    unfinishedTasks:number,
+    finishedTasks:number
 }
 
 type editTasksProps = {
@@ -43,7 +46,7 @@ export default function EditTasks({editData, currentUser, setIsEditing}:editTask
         setEditedList((prevList:any)=>({
             ...prevList,
             tasks:[...prevList.tasks, {
-                "id":uuid(),
+                "id":uuidv4(),
                 "task":task,
                 "status":"unfinished"
             }]
@@ -86,6 +89,11 @@ export default function EditTasks({editData, currentUser, setIsEditing}:editTask
             <input value={editedList.listName} name="listName"
             onChange={(e)=>onChangeName(e)}
             className="createTasks_nameInput" placeholder="Enter list name"/>
+            <div className="createTasks_taskStats">
+                <p className="createTasks_taskStasts_stat">Pending: {editData && editData.unfinishedTasks } </p>
+                <p className="createTasks_taskStats_stat">Total: {editData && editData.tasks.length} </p>
+                <p className="createTasks_taskStats_stat">Done: {editData && editData.finishedTasks} </p>
+            </div>
             <div className="createTasks_inputContainer">
                 <input name="task" onKeyDown={e => {
                     if(e.key == "Enter"){

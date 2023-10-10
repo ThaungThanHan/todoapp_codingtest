@@ -182,6 +182,10 @@ body, html {
 // Create tasks
 .createTasks{
     display:flex;flex-direction: column;justify-content:center;align-items:center;
+    &_taskStats{
+        display:flex;flex-direction: row;min-width:30rem;max-width:30rem;
+        justify-content:space-between
+    }
     &_nameInput{
         width:30rem;height:3rem;border:none;border-bottom:1px solid #eee;background-color: transparent;
         text-align:center;font-size:1.5rem;margin-bottom:1rem;

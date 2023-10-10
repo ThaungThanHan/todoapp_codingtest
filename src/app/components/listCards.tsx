@@ -68,7 +68,9 @@ export default function ListCards({list,setIsEditing,setEditData}:listCardsProps
                 <div onClick={()=>{setIsEditing(true),setEditData({
                     name:list.listName,
                     tasks:list.tasks,
-                    listId:list._id
+                    listId:list._id,
+                    unfinishedTasks:list.unfinishedTasks,
+                    finishedTasks:list.finishedTasks
                 })}} className="listCard_actions_edit">
                     <FaPencilAlt size={18} color="white"/>
                 </div>
