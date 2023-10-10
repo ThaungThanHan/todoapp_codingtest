@@ -3,9 +3,7 @@ import "../styles/auth.scss";
 import { useForm, SubmitHandler } from "react-hook-form"
 import { useRouter } from "next/navigation";
 import ErrorText from "../components/auth/errorText";
-import { loginUser } from "@/dbFunctions/authFunctions";
 import {toast} from 'react-hot-toast';
-import Cookies from 'js-cookie';
 import { sendEmail } from "@/dbFunctions/mailer";
 
 export default function ConfirmPasswordEmail() {
@@ -13,9 +11,9 @@ export default function ConfirmPasswordEmail() {
     type emailInput = {
         email:string
       }
-    const handleChangePasswordEmail = (data:any) => {
+    const handleChangePasswordEmail = async(data:any) => {
       const loadingToast = toast.loading('Sending mail...');
-      sendEmail({email:data.email,emailType:"FORGOT",userId:null}).then(res=>{
+      await sendEmail({email:data.email,emailType:"FORGOT",userId:null}).then(res=>{
         toast.dismiss(loadingToast);
         toast.success("Verification link sent to mail!",{
             duration:2000,

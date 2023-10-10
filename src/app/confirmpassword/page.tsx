@@ -4,9 +4,8 @@ import React, {useState,useEffect} from "react";
 import { useForm, SubmitHandler } from "react-hook-form"
 import { useRouter } from "next/navigation";
 import ErrorText from "../components/auth/errorText";
-import { loginUser, forgotPassword } from "@/dbFunctions/authFunctions";
+import { forgotPassword } from "@/dbFunctions/authFunctions";
 import {toast} from 'react-hot-toast';
-import Cookies from 'js-cookie';
 
 export default function ConfirmPassword() {
     const [token, setToken] = useState("");

@@ -31,7 +31,10 @@ export default function Signup() {
                 duration:2000,
                 icon:"✅"
             })
-            sendEmail({email:data.email,emailType:"VERIFY",userId:res});
+            const sendEmailToUser = async() => {
+                await sendEmail({email:data.email,emailType:"VERIFY",userId:res});
+            }
+            sendEmailToUser();
             router.push("/");
         }).catch(err=>{
             toast.dismiss(loadingToast);

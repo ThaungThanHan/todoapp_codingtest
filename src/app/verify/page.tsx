@@ -34,7 +34,7 @@ export default function Verify(){
         <div className="auth_container">
         <div className="auth_form">
           <h2 className="auth_form_title">
-              {verified ? `You are Verified!` : `The verification is either complete or expired.`}
+              {verified ? `You are Verified!` : `The verification is invalid.`}
               <button onClick={()=> router.push("/login") } className="auth_form_submit">
                     Log in
               </button>

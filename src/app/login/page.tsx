@@ -6,7 +6,6 @@ import ErrorText from "../components/auth/errorText";
 import { loginUser } from "@/dbFunctions/authFunctions";
 import {toast} from 'react-hot-toast';
 import Cookies from 'js-cookie';
-import { startTransition } from 'react';
 export default function Login() {
     const router = useRouter();
     type signinInput = {
