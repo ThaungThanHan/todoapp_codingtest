@@ -44,16 +44,20 @@ export default function ListCards({list,setIsEditing,setEditData}:listCardsProps
 
     }
 
-    const handleDelete = (list:any) => {
+    const handleDelete = async(list:any) => {
         const loadingToast = toast.loading('Deleting...');
-        deleteList(list._id).then(res=>{
+        const result = await deleteList(list._id);
+        if(result?.error){
+            toast.dismiss(loadingToast);
+            toast.error(result.error)
+        }else{
             toast.dismiss(loadingToast);
             toast.success("Task list deleted!",{
                 duration:2000,
                 icon:"🗑"
             });
             setIsModal(false);
-        })
+        }
     }
     return(
         <div className="listCard">

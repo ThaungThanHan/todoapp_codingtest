@@ -24,7 +24,7 @@ export async function sendEmail({email,emailType,userId}:any){
         }else if(emailType == "FORGOT"){
             var userByEmail = await UserModel.findOne({email});
             if(!userByEmail){
-                throw new Error("Invalid.");
+                throw new Error("Invalid Email");
             }
             var hashedEmailToken = await bcryptjs.hash(userByEmail._id.toString(),10);
             await UserModel.findByIdAndUpdate(userByEmail._id, 
@@ -46,8 +46,7 @@ export async function sendEmail({email,emailType,userId}:any){
         (mailOptions);
     }catch(err:any){
         return {
-            status: 'error',
-            message: err.message,
+            error:err.message
         };
     }
 }

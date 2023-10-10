@@ -42,18 +42,18 @@ export default function CreateTasks({setIsCreating, currentUser}:createTaksProps
     
     const handleCreateTasks = async(list:any) => {
         const loadingToast = toast.loading('Creating...');
-        await addListToDB(list).then(res=>{
+        const result = await addListToDB(list);
+        if(result?.error){
+            toast.dismiss(loadingToast);
+            toast.error(result.error,{duration:2000});
+        }else{
             toast.dismiss(loadingToast);
             toast.success("Task list created!",{
                 duration:2000,
                 icon:"🎉"
             });
-            setTimeout(()=>{setIsCreating(false)},2000);
-        }).catch(err=>{
-            toast.dismiss(loadingToast);
-            toast.error(err.message,{duration:2000});
-        })
-        
+            setTimeout(()=>{setIsCreating(false)},1000);
+        }  
     }
     const deleteFromList = (taskId:BigInteger) =>{
         const updatedList = list.tasks.filter((task:any)=>task.id != taskId);

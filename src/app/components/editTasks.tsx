@@ -69,19 +69,20 @@ export default function EditTasks({editData, currentUser, setIsEditing}:editTask
             editedList.tasks[taskIndex].status = "finished";
         }
     }
-    const handleUpdateList = () => {
+    const handleUpdateList = async() => {
         const loadingToast = toast.loading("Updating...")
-        updateList(editData.listId, editedList).then(res=>{
+        const result = await updateList(editData.listId, editedList);
+        if(result?.error){
+            toast.dismiss(loadingToast);
+            toast.error(result.error,{duration:2000});
+        }else{
             toast.dismiss(loadingToast);
             toast.success("Task list updated!",{
                 duration:2000,
                 icon:"🎉"
             });
-            setTimeout(()=>{setIsEditing(false)},2000);
-        }).catch(err=>{
-            toast.dismiss(loadingToast);
-            toast.error(err.message,{duration:2000});
-        });
+            setTimeout(()=>{setIsEditing(false)},1000);
+        }
     }
     return(
         <div className="createTasks">

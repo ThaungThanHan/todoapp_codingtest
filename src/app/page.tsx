@@ -19,8 +19,6 @@ export default function Home() {
       const token = Cookies.get('authToken');
       getLoggedUser(token).then((res:any)=>{
           setCurrentUser(res);
-      }).catch(err=>{
-          console.log(err);
       })
   },[])
   return (

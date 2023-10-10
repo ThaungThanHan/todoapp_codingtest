@@ -13,17 +13,19 @@ export default function ConfirmPasswordEmail() {
       }
     const handleChangePasswordEmail = async(data:any) => {
       const loadingToast = toast.loading('Sending mail...');
-      await sendEmail({email:data.email,emailType:"FORGOT",userId:null}).then(res=>{
+      const result = await sendEmail({email:data.email,emailType:"FORGOT",userId:null});
+      if(result?.error){
+        toast.dismiss(loadingToast);
+        toast.error(result.error)
+      }else{
         toast.dismiss(loadingToast);
         toast.success("Verification link sent to mail!",{
             duration:2000,
             icon:"🎉"
         });
         router.push(`/login`);
-      }).catch(err=>{
-        toast.dismiss(loadingToast);
-        toast.error(err.message,{duration:2000});
-      })}
+      }
+}
     const { register, handleSubmit, formState: { errors } } = useForm<emailInput>();
     const onSubmit: SubmitHandler<emailInput> = (data) => handleChangePasswordEmail(data);
     const emailRegex =/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;

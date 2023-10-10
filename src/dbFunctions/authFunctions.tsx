@@ -42,15 +42,15 @@ export async function loginUser(data:any){
         const {email, password} = data;
         const user = await UserModel.findOne({email});
         if(!user){
-            throw new Error("Invalid");
+            throw new Error("Invalid email or password");
         }
         const validPassword = await bcryptjs.compare(password,user.password);
         if(!validPassword){
-            throw new Error("Invalid")
+            throw new Error("Invalid email or password")
         }
 
         if(!user.isVerified){
-            throw new Error("Invalid.");
+            throw new Error("Please verify first.");
         }
     
         const tokenData = {
@@ -101,7 +101,7 @@ export async function verifyUser(token:any){
         const user = await UserModel.findOne({verifyToken:token, verifyTokenExpiry:{$gt:Date.now()}});
         
         if(!user){
-            throw new Error("Invalid");
+            throw new Error("Invalid link");
         }
 
         user.isVerified = true;
@@ -119,11 +119,11 @@ export async function forgotPassword(token:any,data:any){
     try{
         const user = await UserModel.findOne({forgotPasswordToken:token, forgotPasswordTokenExpiry:{$gt:Date.now()}});
         if(!user){
-            throw new Error("Invalid");
+            throw new Error("Invalid link");
         }
         const sameAsOld = await bcryptjs.compare(data.password,user.password);
         if(sameAsOld){
-            throw new Error("Invalid")
+            throw new Error("Please choose new password")
         }
         const salt = await bcryptjs.genSalt(10);
         const hashedPassword = await bcryptjs.hash(data.password,salt); 

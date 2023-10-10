@@ -18,19 +18,21 @@ export default function ConfirmPassword() {
       const urlToken = window.location.search.split("=")[1];
       setToken(urlToken || "");
     },[])
-    const handleChangePassword = (data:any) => {
+    const handleChangePassword = async(data:any) => {
       const loadingToast = toast.loading('Changing password...');
-      forgotPassword(token, data).then(res=>{
+      const result = await forgotPassword(token,data);
+      if(result?.error){
+        toast.dismiss(loadingToast);
+        toast.error(result.error)
+      }else{
         toast.dismiss(loadingToast);
         toast.success("Password updated!",{
             duration:2000,
             icon:"🎉"
         });
         router.push(`/login`);
-      }).catch(err=>{
-        toast.dismiss(loadingToast);
-        toast.error(err.message,{duration:2000});
-      })}
+      }
+}
     const { register, handleSubmit, watch, formState: { errors } } = useForm<confirmPasswordInput>();
     const onSubmit: SubmitHandler<confirmPasswordInput> = (data) => handleChangePassword(data);
     return (
