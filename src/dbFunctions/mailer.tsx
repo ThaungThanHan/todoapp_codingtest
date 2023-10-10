@@ -46,6 +46,6 @@ export async function sendEmail({email,emailType,userId}:any){
         (mailOptions);
         return mailresponse;
     } catch (error:any) {
-        throw error;
+        return null;
     }
 }

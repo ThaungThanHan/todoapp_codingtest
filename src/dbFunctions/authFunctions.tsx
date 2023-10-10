@@ -109,7 +109,7 @@ export async function forgotPassword(token:any,data:any){
     try{
         const user = await UserModel.findOne({forgotPasswordToken:token, forgotPasswordTokenExpiry:{$gt:Date.now()}});
         if(!user){
-            throw new Error("Expired");
+            throw new Error("Invalid");
         }
         const sameAsOld = await bcryptjs.compare(data.password,user.password);
         if(sameAsOld){
