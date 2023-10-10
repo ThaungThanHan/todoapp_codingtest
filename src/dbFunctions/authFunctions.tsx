@@ -3,7 +3,6 @@ import {connect} from "@/dbConfig/dbConfig";
 import bcryptjs from "bcryptjs";
 import jwt from "jsonwebtoken";
 import UserModel from "@/models/userModel";
-import User from "@/models/userModel";
 connect();
 
 export async function signupUser(data:any){
@@ -23,13 +22,14 @@ export async function signupUser(data:any){
         const salt = await bcryptjs.genSalt(10);
         const hashedPassword = await bcryptjs.hash(password,salt); 
     
-        const newUser = new User({
+        const newUser = new UserModel({
             username,
             email,
             password:hashedPassword
         })
     
         const savedUser = await newUser.save();  
+        return savedUser._id.toString();
     }catch(err){
         throw err;
     }
@@ -45,6 +45,10 @@ export async function loginUser(data:any){
         const validPassword = await bcryptjs.compare(password,user.password);
         if(!validPassword){
             throw new Error("Invalid email or password.")
+        }
+
+        if(!user.isVerified){
+            throw new Error("Please verify first.");
         }
     
         const tokenData = {
@@ -80,6 +84,23 @@ export async function getLoggedUser(token:any){
         }
         return result;
     }catch(err){
+        throw err;
+    }
+}
+
+export async function verifyUser(token:any){
+    try{
+        const user = await UserModel.findOne({verifyToken:token, verifyTokenExpiry:{$gt:Date.now()}});
+        
+        if(!user){
+            throw new Error("Invalid Token");
+        }
+
+        user.isVerified = true;
+        user.verifyToken = undefined;
+        user.verifyTokenExpiry = undefined;
+        await user.save();
+    }catch(err:any){
         throw err;
     }
 }

@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { useForm, SubmitHandler  } from "react-hook-form"
 import ErrorText from "../components/auth/errorText";
 import { signupUser } from "@/dbFunctions/authFunctions";
+import { sendEmail } from "@/dbFunctions/mailer";
 import {toast} from 'react-hot-toast';
 
 export default function Signup() {
@@ -18,22 +19,27 @@ export default function Signup() {
 
 
     const { register, handleSubmit,watch, formState: { errors } } = useForm<signupInput>();
-    const handleSignUp = (data:any) => {
+    const handleSignUp = async (data:any) => {
         const loadingToast = toast.loading("Signing up...");
-        signupUser(data).then((res:any)=>{
+        await signupUser(data).then((res:any)=>{
             toast.dismiss(loadingToast);
             toast.success("Signup successful!",{
-                duration:2000,
+                duration:1000,
                 icon:"🎉"
             });
-            router.push(`/login`);
+            toast.success("Please verify your email before login",{
+                duration:2000,
+                icon:"✅"
+            })
+            sendEmail({email:data.email,emailType:"VERIFY",userId:res});
+            router.push("/");
         }).catch(err=>{
             toast.dismiss(loadingToast);
             toast.error(err.message,{duration:2000});
-          })
+        })
     }
     const onSubmit: SubmitHandler<signupInput> = (data) => handleSignUp(data);
-    const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/gi;
+    const emailRegex =/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
     return (
       <div className="auth_container">
           <div className="auth_form">
