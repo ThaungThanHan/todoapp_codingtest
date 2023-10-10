@@ -13,20 +13,22 @@ export default function Login() {
         email:string
         password: string
       }
-    const handleLogin = (data:any) => {
+    const handleLogin = async(data:any) => {
       const loadingToast = toast.loading('Logging in...');
-      loginUser(data).then(res=>{
-        Cookies.set('authToken',res,{expires:7});
+      const result = await loginUser(data);
+      if(result?.error){
         toast.dismiss(loadingToast);
-        toast.success("Login successful!",{
-            duration:2000,
-            icon:"🎉"
+        toast.error(result.error)
+      }else{
+      Cookies.set('authToken', result, { expires: 7 });
+        toast.dismiss(loadingToast);
+        toast.success('Login successful!', {
+          duration: 2000,
+          icon: '🎉',
         });
-        router.push(`/`);
-      }).catch(err=>{
-        toast.dismiss(loadingToast);
-        toast.error(err.message,{duration:2000});
-      })}
+        router.push('/');
+      }
+    }
     const { register, handleSubmit, formState: { errors } } = useForm<signinInput>();
     const onSubmit: SubmitHandler<signinInput> = (data) => handleLogin(data);
     return (

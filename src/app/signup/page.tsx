@@ -21,7 +21,11 @@ export default function Signup() {
     const { register, handleSubmit,watch, formState: { errors } } = useForm<signupInput>();
     const handleSignUp = async (data:any) => {
         const loadingToast = toast.loading("Signing up...");
-        await signupUser(data).then((res:any)=>{
+        const result = await signupUser(data);
+        if(result?.error){
+            toast.dismiss(loadingToast);
+            toast.error(result.error)
+          }else{
             toast.dismiss(loadingToast);
             toast.success("Signup successful!",{
                 duration:1000,
@@ -32,14 +36,11 @@ export default function Signup() {
                 icon:"✅"
             })
             const sendEmailToUser = async() => {
-                await sendEmail({email:data.email,emailType:"VERIFY",userId:res});
+                await sendEmail({email:data.email,emailType:"VERIFY",userId:result});
             }
             sendEmailToUser();
             router.push("/");
-        }).catch(err=>{
-            toast.dismiss(loadingToast);
-            toast.error(err.message,{duration:2000});
-        })
+          }
     }
     const onSubmit: SubmitHandler<signupInput> = (data) => handleSignUp(data);
     const emailRegex =/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;

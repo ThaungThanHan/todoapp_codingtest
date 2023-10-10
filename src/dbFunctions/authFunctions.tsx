@@ -32,8 +32,7 @@ export async function signupUser(data:any){
         return savedUser._id.toString();
     }catch(err:any){
         return {
-            status: 'error',
-            message: err.message,
+            error:err.message
         };
     }
 }
@@ -64,8 +63,7 @@ export async function loginUser(data:any){
         return token;
     }catch(err:any){
         return {
-            status: 'error',
-            message: err.message,
+            error:err.message
         };
     }
 }
@@ -76,8 +74,7 @@ export async function getDataFromToken(token:any){
         return decodedToken.id;
     }catch(err:any){
         return {
-            status: 'error',
-            message: err.message,
+            error:err.message
         };
     }
 }
@@ -94,8 +91,7 @@ export async function getLoggedUser(token:any){
         return result;
     }catch(err:any){
         return {
-            status: 'error',
-            message: err.message,
+            error:err.message
         };
     }
 }
@@ -114,8 +110,7 @@ export async function verifyUser(token:any){
         await user.save();
     }catch(err:any){
         return {
-            status: 'error',
-            message: err.message,
+            error:err.message
         };
     }
 }
@@ -139,8 +134,7 @@ export async function forgotPassword(token:any,data:any){
         await user.save();
     }catch(err:any){
         return {
-            status: 'error',
-            message: err.message,
+            error:err.message
         };
     }
 }
