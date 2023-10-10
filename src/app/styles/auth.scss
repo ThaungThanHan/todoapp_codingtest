@@ -61,7 +61,8 @@ body, html {
         color:black;
         &_link{
             color:$primaryGreen;cursor:pointer;transition:all .5s;font-weight:bold;
-            text-decoration: none;
+            text-decoration: none;text-align:right;min-width:100%;max-width:100%;
+            margin-bottom:.5rem;
             &:hover{
                 color:$secondaryGreen
             }

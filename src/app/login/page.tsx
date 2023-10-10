@@ -15,7 +15,7 @@ export default function Login() {
       }
     const handleLogin = (data:any) => {
       const loadingToast = toast.loading('Logging in...');
-      startTransition(()=>{loginUser(data).then(res=>{
+      loginUser(data).then(res=>{
         Cookies.set('authToken',res,{expires:7});
         toast.dismiss(loadingToast);
         toast.success("Login successful!",{
@@ -26,8 +26,7 @@ export default function Login() {
       }).catch(err=>{
         toast.dismiss(loadingToast);
         toast.error(err.message,{duration:2000});
-      })})
-    }
+      })}
     const { register, handleSubmit, formState: { errors } } = useForm<signinInput>();
     const onSubmit: SubmitHandler<signinInput> = (data) => handleLogin(data);
     return (
@@ -50,6 +49,9 @@ export default function Login() {
                     placeholder="Please enter password" />
                     {errors?.password?.type === "required" && <ErrorText text="Password is required!" />}
                 </div> 
+                <a href="/confirmpasswordemail" className="auth_form_redirect_link">
+                  Forgot password
+                </a>
                 <button className="auth_form_submit">
                     Log in
                 </button>
