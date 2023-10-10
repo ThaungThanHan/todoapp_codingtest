@@ -1,7 +1,7 @@
 @import "./variables.scss";
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 *{
-    font-family: 'Roboto', sans-serif;color:black;
+    font-family: 'Roboto', sans-serif;
 }
 
 body, html {
@@ -33,9 +33,9 @@ body, html {
             }
         }
         &_errorText{
-            display:flex;font-size:.7rem;align-items: center;
+            display:flex;font-size:.7rem;align-items: center;color:red;
             &_icon{
-                margin-right:.5rem;
+                margin-right:.5rem;color:red;
             }
         }
     }
