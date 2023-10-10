@@ -93,7 +93,7 @@ export async function verifyUser(token:any){
         const user = await UserModel.findOne({verifyToken:token, verifyTokenExpiry:{$gt:Date.now()}});
         
         if(!user){
-            throw new Error("Invalid Token");
+            throw new Error("Invalid");
         }
 
         user.isVerified = true;
@@ -109,11 +109,11 @@ export async function forgotPassword(token:any,data:any){
     try{
         const user = await UserModel.findOne({forgotPasswordToken:token, forgotPasswordTokenExpiry:{$gt:Date.now()}});
         if(!user){
-            throw new Error("Token expired");
+            throw new Error("Expired");
         }
         const sameAsOld = await bcryptjs.compare(data.password,user.password);
         if(sameAsOld){
-            throw new Error("Please choose new password.")
+            throw new Error("Choose a new password")
         }
         const salt = await bcryptjs.genSalt(10);
         const hashedPassword = await bcryptjs.hash(data.password,salt); 
