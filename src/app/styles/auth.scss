@@ -14,14 +14,20 @@ body, html {
 .auth_form{
     width:40rem;margin:0 auto;height:100vh;display:flex;
     flex-direction:column;align-items: center;
+    &_title{
+        color:black;
+    }
     &_form{
         display:flex;flex-direction: column;align-items: center;justify-content: center;
     }
     &_input{
         display:flex;flex-direction: column;margin-bottom:.5rem;
+        &_label{
+            color:black;
+        }
         &_inputbox{
             height:2rem;width:15rem;background-color:$white;border-radius:.5rem;
-            border:1px solid #eee;padding-left:.5rem;
+            border:1px solid #eee;padding-left:.5rem;color:black;
             &:focus{
                 outline:none;
             }
@@ -52,6 +58,7 @@ body, html {
         }
     }
     &_redirect{
+        color:black;
         &_link{
             color:$primaryGreen;cursor:pointer;transition:all .5s;font-weight:bold;
             text-decoration: none;

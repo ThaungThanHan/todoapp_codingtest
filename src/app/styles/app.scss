@@ -47,11 +47,11 @@ body, html {
     right:0;align-items:flex-end;
     &_welcomeText{
         font-size:2rem;margin-bottom:-1rem;margin-top:-.05rem;width:100%;
-        width:auto;margin-right:.5rem;
+        width:auto;margin-right:.5rem;color:black;
     }
     &_logout{
         font-size:1.5rem;margin-right:0;cursor:pointer;
-        width:auto;transition:all .5s;margin-right:.5rem;
+        width:auto;transition:all .5s;margin-right:.5rem;color:black;
         &:hover{
             color:$secondaryGreen
         }
@@ -64,7 +64,7 @@ body, html {
         display:flex; flex-direction:row;justify-content: space-between;
         align-items: center;
         &_title{
-            margin-left:.5rem;font-size:1.2rem;
+            margin-left:.5rem;font-size:1.2rem;color:black;
         }
         &_create{
             width:10rem;height:2rem;margin-right:.5rem;padding:.5rem;cursor:pointer;
@@ -101,7 +101,7 @@ body, html {
     border-radius:.5rem;background-color: $white;
     flex-direction: column;align-items:center;box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
     &_name{
-        font-weight:bold;
+        font-weight:bold;color:black;
     }
     &_statsContainer{
         width:100%;height:10rem;display:flex;flex-direction:column;
@@ -184,11 +184,12 @@ body, html {
     display:flex;flex-direction: column;justify-content:center;align-items:center;
     &_taskStats{
         display:flex;flex-direction: row;min-width:25rem;max-width:25rem;
-        justify-content:space-between;padding:0 .5rem;
+        justify-content:space-between;padding:0 .5rem;color:black;
+        font-size:1.2rem;
     }
     &_nameInput{
         width:30rem;height:3rem;border:none;border-bottom:1px solid #eee;background-color: transparent;
-        text-align:center;font-size:1.5rem;margin-bottom:1rem;
+        text-align:center;font-size:1.5rem;margin-bottom:1rem;color:black;
         &:focus{
             outline:none;
         }
@@ -198,7 +199,7 @@ body, html {
         padding:.5rem;align-items:center;
         &_input{
             border:1px solid #eee;height:2.5rem;width:24rem;font-size:1.5rem;padding-left:.5rem;
-            border-radius:.25rem;transition:all .5s;
+            border-radius:.25rem;transition:all .5s;color:black;
             &:focus{
                 outline:none;
                 border:1px solid $primaryGreen;
@@ -224,7 +225,7 @@ body, html {
         &_tasks{
             border:1px solid #eee;max-width:100%;padding-left:1rem;border-radius:2rem;
             height:3rem;margin-bottom:1rem;display:flex;flex-direction:row;justify-content:space-between;
-            align-items: center;transition:all .5s;background-color:$white;
+            align-items: center;transition:all .5s;background-color:$white;color:black;
             box-shadow: 3px 7px 12px -6px rgba(0,0,0,0.1);
             &_tasksTextDone{
                 text-decoration: line-through;
