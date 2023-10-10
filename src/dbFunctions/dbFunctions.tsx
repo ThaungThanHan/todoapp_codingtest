@@ -20,8 +20,11 @@ export async function addListToDB(data:any){
             finishedTasks:finishedTasks
         })
         await listData.save();
-    }catch(err){
-        throw err;
+    }catch(err:any){
+        return {
+            status: 'error',
+            message: err.message,
+        };
     }
 }
 
@@ -39,8 +42,11 @@ export async function getListsById(userId:any){
             })
         })
         return response;
-    }catch(error){
-        throw error;
+    }catch(err:any){
+        return {
+            status: 'error',
+            message: err.message,
+        };
     }
 }
 
@@ -59,16 +65,22 @@ export async function updateList(listId:any, data:any){
             unfinishedTasks:unfinishedTasks,
             finishedTasks:finishedTasks
         })
-    }catch(err){
-        throw err;
+    }catch(err:any){
+        return {
+            status: 'error',
+            message: err.message,
+        };
     }
 }
 
 export async function deleteList(listId:any){
     try{
         const deleteList = await TaskListsModel.findByIdAndDelete(listId);
-    }catch(err){
-        console.error(err);
+    }catch(err:any){
+        return {
+            status: 'error',
+            message: err.message,
+        };
     }
 }
 

@@ -44,7 +44,10 @@ export async function sendEmail({email,emailType,userId}:any){
         }
         const mailresponse = await transport.sendMail
         (mailOptions);
-    } catch (error:any) {
-        throw new Error("Failed to send email");
+    }catch(err:any){
+        return {
+            status: 'error',
+            message: err.message,
+        };
     }
 }

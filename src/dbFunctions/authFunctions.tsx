@@ -30,8 +30,11 @@ export async function signupUser(data:any){
     
         const savedUser = await newUser.save();  
         return savedUser._id.toString();
-    }catch(err){
-        throw err;
+    }catch(err:any){
+        return {
+            status: 'error',
+            message: err.message,
+        };
     }
 }
 
@@ -59,8 +62,11 @@ export async function loginUser(data:any){
 
         const token = await jwt.sign(tokenData,process.env.TOKEN_SECRET,{expiresIn:"1d"});
         return token;
-    }catch(err){
-        throw err;
+    }catch(err:any){
+        return {
+            status: 'error',
+            message: err.message,
+        };
     }
 }
 
@@ -68,8 +74,11 @@ export async function getDataFromToken(token:any){
     try{
         const decodedToken:any = jwt.verify(token, process.env.TOKEN_SECRET!);
         return decodedToken.id;
-    }catch(err){
-        throw err;
+    }catch(err:any){
+        return {
+            status: 'error',
+            message: err.message,
+        };
     }
 }
 
@@ -83,8 +92,11 @@ export async function getLoggedUser(token:any){
             email:user.username
         }
         return result;
-    }catch(err){
-        throw err;
+    }catch(err:any){
+        return {
+            status: 'error',
+            message: err.message,
+        };
     }
 }
 
@@ -101,7 +113,10 @@ export async function verifyUser(token:any){
         user.verifyTokenExpiry = undefined;
         await user.save();
     }catch(err:any){
-        throw err;
+        return {
+            status: 'error',
+            message: err.message,
+        };
     }
 }
 
@@ -122,7 +137,10 @@ export async function forgotPassword(token:any,data:any){
         user.forgotPasswordToken = undefined;
         user.forgotPasswordTokenExpiry = undefined;
         await user.save();
-    }catch(err){
-        throw err;
+    }catch(err:any){
+        return {
+            status: 'error',
+            message: err.message,
+        };
     }
 }
